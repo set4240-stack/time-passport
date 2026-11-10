@@ -1,750 +1,783 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TIME PASSPORT // 2026 EDITION</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Crisp Korean & English Web Fonts -->
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-cosmic: #070B19;
-            --accent-cyan: #38BDF8;
-            --accent-violet: #A855F7;
-            --accent-gold: #FBBF24;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>K-POP TIME TRAVEL | STARDIAR × ECHO:ERA</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+  :root {
+    --bg-dark: #090a0f;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --border-light: rgba(255, 255, 255, 0.12);
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+    --gold: #eab308;
+    --gold-glow: rgba(234, 179, 8, 0.25);
+    --aqua: #06b6d4;
+    --aqua-glow: rgba(6, 182, 212, 0.25);
+    --violet: #a855f7;
+    --violet-glow: rgba(168, 85, 247, 0.25);
+  }
 
-        body {
-            margin: 0;
-            font-family: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #03050C;
-            color: #F8FAFC;
-            overflow-x: hidden;
-            user-select: none;
-        }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-        .font-mono-tech {
-            font-family: 'Space Grotesk', 'Inter', monospace;
-        }
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 15% 15%, rgba(234, 179, 8, 0.08), transparent 40%),
+      radial-gradient(circle at 85% 50%, rgba(6, 182, 212, 0.08), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(168, 85, 247, 0.1), transparent 45%);
+  }
 
-        /* Subtle CSS Starfield & Glowing Cosmic Orbs */
-        .starfield {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                radial-gradient(1.5px 1.5px at 20% 30%, rgba(255, 255, 255, 0.45), transparent),
-                radial-gradient(1px 1px at 75% 15%, rgba(56, 189, 248, 0.6), transparent),
-                radial-gradient(1.5px 1.5px at 85% 65%, rgba(168, 85, 247, 0.5), transparent),
-                radial-gradient(1px 1px at 35% 80%, rgba(251, 191, 36, 0.5), transparent),
-                radial-gradient(1px 1px at 55% 45%, rgba(255, 255, 255, 0.35), transparent);
-            background-size: 220px 220px;
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: 0;
-        }
+  .app-container {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
 
-        .cosmic-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(75px);
-            pointer-events: none;
-            z-index: 0;
-            animation: driftOrb 9s ease-in-out infinite alternate;
-        }
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+    z-index: 10;
+  }
 
-        @keyframes driftOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(18px, -22px) scale(1.12); }
-        }
+  .brand-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-sub);
+  }
 
-        /* Animated Holographic Border for Step 1 Cover */
-        .holo-border-box {
-            position: relative;
-            border-radius: 24px;
-            padding: 2px;
-            background: linear-gradient(135deg, #38BDF8, #A855F7, #FBBF24, #38BDF8);
-            background-size: 300% 300%;
-            animation: borderGradientFlow 5s ease infinite;
-            box-shadow: 0 18px 45px -10px rgba(56, 189, 248, 0.25);
-        }
+  .mentor-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-light);
+    color: #e2e8f0;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mentor-btn:hover { background: rgba(255, 255, 255, 0.16); }
 
-        @keyframes borderGradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+  /* Progress Bar */
+  .progress-wrap {
+    display: flex;
+    gap: 6px;
+    margin: 14px 0;
+  }
+  .step-dot {
+    height: 4px;
+    flex: 1;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+  }
+  .step-dot.active-gold { background: var(--gold); box-shadow: 0 0 8px var(--gold-glow); }
+  .step-dot.active-aqua { background: var(--aqua); box-shadow: 0 0 8px var(--aqua-glow); }
+  .step-dot.active-violet { background: var(--violet); box-shadow: 0 0 8px var(--violet-glow); }
 
-        /* Step Transitions */
-        .step-view {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 1.5rem;
-            padding-top: 4rem;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(18px) scale(0.97);
-            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                        visibility 0.45s;
-            z-index: 10;
-        }
+  /* Screen Transitions */
+  .screen {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+    animation: fadeIn 0.35s ease forwards;
+  }
+  .screen.active { display: flex; }
 
-        .step-view.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-        /* 3D Hologram Memory Card */
-        .card-stage {
-            perspective: 1100px;
-        }
+  /* Typography & Badges */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .badge-gold { background: var(--gold-glow); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.4); }
+  .badge-aqua { background: var(--aqua-glow); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4); }
+  .badge-violet { background: var(--violet-glow); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
 
-        .holo-card {
-            position: relative;
-            background: linear-gradient(155deg, rgba(16, 24, 48, 0.94), rgba(9, 13, 28, 0.98));
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(168, 85, 247, 0.2);
-            transform-style: preserve-3d;
-            transition: transform 0.14s ease-out, box-shadow 0.3s ease;
-            overflow: hidden;
-        }
+  h1 {
+    font-size: 26px;
+    line-height: 1.35;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  p.desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-sub);
+    margin-bottom: 20px;
+  }
 
-        /* Dynamic Shimmering Foil Reflection */
-        .foil-sheen {
-            position: absolute;
-            inset: -50%;
-            background: linear-gradient(
-                115deg,
-                transparent 30%,
-                rgba(56, 189, 248, 0.22) 44%,
-                rgba(168, 85, 247, 0.28) 50%,
-                rgba(251, 191, 36, 0.22) 56%,
-                transparent 70%
-            );
-            background-size: 200% 200%;
-            mix-blend-mode: screen;
-            opacity: 0.45;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
+  /* Character Guide Box */
+  .guide-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .avatar-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .av-ria { background: linear-gradient(135deg, #ca8a04, #fef08a); color: #000; }
+  .av-seon { background: linear-gradient(135deg, #0891b2, #a5f3fc); color: #000; }
+  .av-nova { background: linear-gradient(135deg, #7e22ce, #e9d5ff); color: #000; }
 
-        .holo-card.stamped .foil-sheen {
-            opacity: 0.9;
-            animation: foilAutoShimmer 3.5s ease-in-out infinite alternate;
-        }
+  .guide-text { font-size: 13px; line-height: 1.45; color: #e2e8f0; }
+  .guide-name { font-size: 11px; font-weight: 700; display: block; margin-bottom: 2px; opacity: 0.8; }
 
-        @keyframes foilAutoShimmer {
-            0% { transform: translate(-10%, -10%) rotate(0deg); }
-            100% { transform: translate(10%, 10%) rotate(4deg); }
-        }
+  /* Selection Cards & Grids */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .grid-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
 
-        /* Stamp Impact Animation */
-        .passport-stamp {
-            transform: scale(2.6) rotate(-28deg);
-            opacity: 0;
-            transition: transform 0.42s cubic-bezier(0.22, 1.61, 0.36, 1), opacity 0.28s ease-out;
-        }
+  .choice-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 15px;
+    text-align: left;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .choice-card:active { transform: scale(0.98); }
+  .choice-card strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .choice-card span { font-size: 12px; color: var(--text-sub); }
 
-        .holo-card.stamped .passport-stamp {
-            transform: scale(1) rotate(-11deg);
-            opacity: 1;
-        }
+  .choice-card.selected-gold { border-color: var(--gold); background: rgba(234, 179, 8, 0.12); }
+  .choice-card.selected-aqua { border-color: var(--aqua); background: rgba(6, 182, 212, 0.12); }
+  .choice-card.selected-violet { border-color: var(--violet); background: rgba(168, 85, 247, 0.12); }
 
-        /* Particle Burst Dots */
-        .stamp-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 30;
-            animation: particleExplode 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+  /* Input Box */
+  .input-group { margin-bottom: 16px; }
+  .input-group label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sub); margin-bottom: 6px; }
+  textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 12px;
+    color: #fff;
+    font-size: 14px;
+    resize: none;
+    height: 76px;
+    outline: none;
+  }
+  textarea:focus { border-color: var(--gold); }
 
-        @keyframes particleExplode {
-            0% {
-                transform: translate(0, 0) scale(1.2);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
-        }
+  /* Buttons */
+  .btn-row { display: flex; gap: 10px; margin-top: auto; padding-top: 12px; }
+  .btn {
+    flex: 1;
+    padding: 15px;
+    border-radius: 14px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-prev { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; flex: 0.4; }
+  .btn-primary { background: #fff; color: #090a0f; }
+  .btn-gold { background: var(--gold); color: #000; }
+  .btn-aqua { background: var(--aqua); color: #000; }
+  .btn-violet { background: var(--violet); color: #fff; }
 
-        /* Boarding Pass Perforation Divider */
-        .ticket-cutout {
-            position: relative;
-            border-top: 1.5px dashed rgba(255, 255, 255, 0.16);
-        }
-        .ticket-cutout::before,
-        .ticket-cutout::after {
-            content: '';
-            position: absolute;
-            top: -9px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background-color: #070B19;
-        }
-        .ticket-cutout::before { left: -29px; }
-        .ticket-cutout::after { right: -29px; }
+  /* Passport Preview Card (4:5 Aspect Ratio) */
+  .passport-wrapper {
+    width: 100%;
+    max-width: 310px;
+    margin: 0 auto 16px;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease;
+  }
+  .theme-CYBER { background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 50%, #06b6d4 140%); }
+  .theme-COSMIC { background: linear-gradient(145deg, #090d16 0%, #3b0764 55%, #a855f7 140%); }
+  .theme-NATURE { background: linear-gradient(145deg, #064e3b 0%, #0f172a 60%, #eab308 140%); }
 
-        /* Theme Variants for Step 3 Final Passport */
-        .theme-cyan {
-            --p-border: rgba(56, 189, 248, 0.45);
-            --p-glow: rgba(56, 189, 248, 0.25);
-            --p-grad-from: rgba(14, 30, 58, 0.95);
-            --p-grad-to: rgba(18, 14, 42, 0.98);
-            --p-badge-bg: rgba(56, 189, 248, 0.15);
-            --p-badge-text: #38BDF8;
-            --p-accent: #38BDF8;
-        }
+  .pp-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px dashed rgba(255,255,255,0.25); padding-bottom: 12px; }
+  .pp-title { font-size: 18px; font-weight: 900; letter-spacing: 1px; line-height: 1.1; }
+  .pp-sub { font-size: 9px; letter-spacing: 1.5px; opacity: 0.75; }
+  .pp-stamp {
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+    text-align: center;
+    transform: rotate(-12deg);
+    line-height: 1.1;
+  }
 
-        .theme-gold {
-            --p-border: rgba(251, 191, 36, 0.5);
-            --p-glow: rgba(251, 191, 36, 0.25);
-            --p-grad-from: rgba(45, 28, 16, 0.95);
-            --p-grad-to: rgba(24, 14, 32, 0.98);
-            --p-badge-bg: rgba(251, 191, 36, 0.16);
-            --p-badge-text: #FBBF24;
-            --p-accent: #FBBF24;
-        }
+  .pp-body { my: auto; display: flex; flex-direction: column; gap: 12px; }
+  .pp-field label { font-size: 9px; letter-spacing: 1.2px; opacity: 0.7; display: block; margin-bottom: 2px; }
+  .pp-field .val { font-size: 15px; font-weight: 700; }
+  .pp-memory-box {
+    background: rgba(0, 0, 0, 0.35);
+    border-left: 3px solid var(--gold);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.45;
+    word-break: keep-all;
+  }
 
-        .final-passport-card {
-            background: linear-gradient(155deg, var(--p-grad-from), var(--p-grad-to));
-            border: 1.5px solid var(--p-border);
-            box-shadow: 0 22px 48px -12px rgba(0, 0, 0, 0.85), 0 0 32px var(--p-glow);
-            transition: all 0.4s ease;
-        }
+  .pp-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    opacity: 0.85;
+    font-weight: 600;
+  }
 
-        /* Non-blocking Toast Banner */
-        .toast-banner {
-            transform: translate(-50%, -18px);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        .toast-banner.visible {
-            transform: translate(-50%, 0);
-            opacity: 1;
-        }
-    </style>
+  /* Modal for Mentor / KPI Overview */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-card {
+    background: #131620;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    max-width: 400px;
+    width: 100%;
+    padding: 22px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .modal-card h3 { font-size: 17px; margin-bottom: 12px; color: #fff; }
+  .modal-section { margin-bottom: 14px; font-size: 13px; line-height: 1.55; color: #cbd5e1; }
+  .modal-section strong { color: #fde047; display: block; margin-bottom: 3px; }
+</style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-0 sm:p-4">
+<body>
 
-    <!-- 9:16 Centered Mobile Prototype Frame -->
-    <div id="prototype-container" class="relative w-full h-[100dvh] sm:w-[390px] sm:h-[812px] sm:rounded-[38px] bg-[#070B19] sm:border sm:border-white/15 sm:shadow-[0_0_70px_rgba(56,189,248,0.18)] overflow-hidden flex flex-col">
+<div class="app-container">
+  <header>
+    <div class="brand-tag">STARDIAR × ECHO:ERA</div>
+    <button class="mentor-btn" onclick="toggleModal(true)">📊 기획·KPI 노트</button>
+  </header>
 
-        <!-- Pure CSS Cosmic Starfield & Ambient Orbs -->
-        <div class="starfield"></div>
-        <div class="cosmic-orb w-60 h-60 bg-[#38BDF8]/20 -top-12 -left-12"></div>
-        <div class="cosmic-orb w-64 h-64 bg-[#A855F7]/20 bottom-8 -right-14" style="animation-delay: -4s;"></div>
+  <div class="progress-wrap" id="progressBar" style="visibility: hidden;">
+    <div class="step-dot" id="dot1"></div>
+    <div class="step-dot" id="dot2"></div>
+    <div class="step-dot" id="dot3"></div>
+    <div class="step-dot" id="dot4"></div>
+  </div>
 
-        <!-- Custom Toast Notification -->
-        <div id="toast-banner" class="toast-banner absolute top-14 left-1/2 z-50 px-4 py-2 rounded-full bg-slate-900/90 border border-white/20 backdrop-blur-md text-xs font-medium text-white shadow-xl whitespace-nowrap pointer-events-none">
-            알림 메시지
+  <!-- SCREEN 1: TIME GATE -->
+  <section class="screen active" id="screen1">
+    <div style="margin-top: 20px;">
+      <span class="badge badge-gold">K-POP TIME TRAVEL MVP</span>
+      <h1>당신의 K-POP 이야기는<br>언제 시작됐나요?</h1>
+      <p class="desc">
+        앨범과 캡처 속에 흩어진 입덕의 기억을 꺼내보세요.<br>
+        가상 아이돌 <strong>ECHO:ERA(리아·세온·노바)</strong>의 안내를 따라 3번 선택하면, 5분 안에 나만의 <strong>TIME PASSPORT</strong>가 완성됩니다.
+      </p>
+
+      <div class="guide-box" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+        <div style="font-size: 12px; font-weight: 700; color: #fde047;">✨ 체험 안내 (무료 · 무회원 · 5분 소요)</div>
+        <div style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">
+          • <strong>STEP 1 (RIA):</strong> 나의 첫 입덕 시대와 한 줄 기억<br>
+          • <strong>STEP 2 (SEON):</strong> 현재 연결될 글로벌 가상 무대<br>
+          • <strong>STEP 3 (NOVA):</strong> 다가올 미래 콘서트 콘셉트
         </div>
-
-        <!-- Top Navigation & Step Indicator -->
-        <header class="relative z-20 px-6 pt-5 pb-2 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#38BDF8] shadow-[0_0_8px_#38BDF8]"></span>
-                <span class="font-mono-tech text-xs font-bold tracking-[0.18em] text-slate-200">TIME PASSPORT</span>
-            </div>
-            <div class="flex items-center gap-1.5" id="progress-indicators">
-                <span class="h-1.5 w-6 rounded-full bg-[#38BDF8] transition-all duration-300"></span>
-                <span class="h-1.5 w-2 rounded-full bg-white/20 transition-all duration-300"></span>
-                <span class="h-1.5 w-2 rounded-full bg-white/20 transition-all duration-300"></span>
-            </div>
-        </header>
-
-        <!-- =========================================================
-             STEP 1: ENTRY & BOARDING CHECK-IN
-        ========================================================== -->
-        <section id="step-1" class="step-view active">
-            <div class="my-auto space-y-6">
-                <!-- Futuristic Holographic Passport Cover -->
-                <div class="holo-border-box">
-                    <div class="bg-[#090E21] rounded-[22px] p-6 relative overflow-hidden">
-                        <!-- Subtle Inner Grid Pattern -->
-                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.18),transparent_60%)] pointer-events-none"></div>
-
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-[#38BDF8]/10 border border-[#38BDF8]/30 font-mono-tech text-[10px] font-bold tracking-widest text-[#38BDF8]">
-                                2026 EDITION
-                            </span>
-                            <!-- Emblem Icon -->
-                            <div class="w-9 h-9 rounded-full border border-[#FBBF24]/40 bg-[#FBBF24]/10 flex items-center justify-center text-[#FBBF24]">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div class="space-y-1.5 mb-6">
-                            <p class="font-mono-tech text-xs tracking-[0.25em] text-[#A855F7] font-semibold">INTERACTIVE ARCHIVE</p>
-                            <h1 class="font-mono-tech text-3xl font-bold tracking-tight text-white leading-tight">
-                                TIME PASSPORT<br>
-                                <span class="bg-gradient-to-r from-[#38BDF8] via-[#A855F7] to-[#FBBF24] bg-clip-text text-transparent">
-                                    // 2026 EDITION
-                                </span>
-                            </h1>
-                        </div>
-
-                        <p class="text-xs text-slate-300 leading-relaxed mb-5">
-                            당신의 음악 여정과 무대의 기억을 기록하는 디지털 탑승권입니다. 닉네임을 확인하고 여권을 발급받으세요.
-                        </p>
-
-                        <!-- Quick Nickname Input -->
-                        <div class="space-y-1.5">
-                            <label for="input-nickname" class="block text-[11px] font-semibold text-slate-300 tracking-wide">
-                                PASSENGER NICKNAME (탑승자 닉네임)
-                            </label>
-                            <input
-                                type="text"
-                                id="input-nickname"
-                                value="JIHUN"
-                                placeholder="지훈"
-                                maxlength="16"
-                                class="w-full px-4 py-3 rounded-xl bg-[#050814] border border-white/15 text-sm font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-[#38BDF8] transition-colors"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Glowing Primary Action CTA -->
-            <div class="pt-3">
-                <button
-                    id="btn-issue-start"
-                    type="button"
-                    class="w-full py-4 rounded-2xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#A855F7] text-slate-950 shadow-[0_0_28px_rgba(56,189,248,0.45)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                >
-                    <span>ISSUE PASSPORT (여권 발급하기)</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                </button>
-            </div>
-        </section>
-
-        <!-- =========================================================
-             STEP 2: INTERACTIVE 3D HOLOGRAM MEMORY CARD
-        ========================================================== -->
-        <section id="step-2" class="step-view">
-            <div class="text-center space-y-1">
-                <span class="font-mono-tech text-[11px] tracking-[0.2em] text-[#38BDF8] uppercase">BOARDING PASS CHECK</span>
-                <h2 id="step2-heading" class="text-base font-bold text-white">카드를 기울이거나 드래그해 홀로그램을 확인하세요</h2>
-            </div>
-
-            <!-- 3D Tilt & Foil Card Container -->
-            <div class="card-stage my-auto py-2">
-                <div id="holo-memory-card" class="holo-card rounded-3xl p-5 cursor-grab active:cursor-grabbing">
-                    <!-- Dynamic Shimmering Foil Layer -->
-                    <div id="foil-reflection" class="foil-sheen"></div>
-
-                    <!-- Card Header -->
-                    <div class="flex items-center justify-between mb-4 relative z-10">
-                        <div>
-                            <span class="font-mono-tech text-[10px] tracking-widest text-[#FBBF24] block">FAN MEMORY ARCHIVE</span>
-                            <h3 id="card-passenger-name" class="font-mono-tech text-lg font-bold text-white">JIHUN</h3>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/15 font-mono-tech text-[10px] text-slate-200">
-                            GATE 2026
-                        </span>
-                    </div>
-
-                    <!-- Flight Route Banner: SEOUL -> GLOBAL STAGE -->
-                    <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 mb-4 relative z-10">
-                        <div class="flex items-center justify-between text-xs">
-                            <div>
-                                <span class="text-[10px] text-slate-400 block">DEPARTURE</span>
-                                <span class="font-mono-tech font-bold text-white text-sm">SEOUL</span>
-                            </div>
-                            <div class="flex items-center gap-1.5 text-[#38BDF8]">
-                                <span class="w-5 h-[1px] bg-[#38BDF8]/50"></span>
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                                </svg>
-                                <span class="w-5 h-[1px] bg-[#A855F7]/50"></span>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-[10px] text-slate-400 block">ARRIVAL</span>
-                                <span class="font-mono-tech font-bold text-[#38BDF8] text-sm">GLOBAL STAGE</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Featured Stage Memory Box -->
-                    <div class="relative rounded-2xl p-4 mb-4 border border-[#A855F7]/30 bg-gradient-to-br from-[#1E1B4B]/80 via-[#311042]/60 to-[#0F172A]/90 overflow-hidden z-10">
-                        <span class="font-mono-tech text-[10px] tracking-widest text-[#A855F7] block mb-1">TOP ARTIST / STAGE MEMORY</span>
-                        <p class="font-mono-tech text-lg font-bold text-white tracking-tight">"AURORA ENCORE TOUR"</p>
-                        <div class="mt-3 flex items-center justify-between">
-                            <div>
-                                <span class="text-[10px] text-slate-400 block">TOTAL IMMERSION</span>
-                                <span class="font-mono-tech text-sm font-bold text-[#FBBF24]">342 HOURS LISTENED</span>
-                            </div>
-                            <span class="px-2 py-0.5 rounded bg-[#FBBF24]/15 border border-[#FBBF24]/30 font-mono-tech text-[10px] text-[#FBBF24]">
-                                TOP 0.5%
-                            </span>
-                        </div>
-
-                        <!-- Animated Hologram Ink Stamp (Revealed on Stamp Click) -->
-                        <div id="stamp-emblem" class="passport-stamp absolute right-3 bottom-2 pointer-events-none z-20">
-                            <div class="w-20 h-20 rounded-full border-2 border-dashed border-[#38BDF8] bg-[#38BDF8]/20 backdrop-blur-md flex flex-col items-center justify-center text-center shadow-[0_0_24px_rgba(56,189,248,0.7)]">
-                                <span class="font-mono-tech text-[8px] font-bold tracking-widest text-[#FBBF24]">APPROVED</span>
-                                <span class="font-mono-tech text-[11px] font-extrabold text-white leading-tight">2026.12.11<br>STAMPED</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Perforated Bottom Line -->
-                    <div class="ticket-cutout pt-3 flex items-center justify-between text-[11px] text-slate-400 relative z-10">
-                        <span id="card-status-hint" class="text-[#38BDF8] font-medium">✨ 드래그하여 홀로그램 반사 확인</span>
-                        <span class="font-mono-tech">SEAT 01-A</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Controls: Stamp Passport -> Proceed -->
-            <div class="space-y-2.5 pt-2">
-                <button
-                    id="btn-stamp-passport"
-                    type="button"
-                    class="w-full py-4 rounded-2xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#FBBF24] via-[#F59E0B] to-[#EC4899] text-slate-950 shadow-[0_0_25px_rgba(251,191,36,0.35)] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                >
-                    <span>STAMP PASSPORT (스탬프 찍기)</span>
-                </button>
-
-                <button
-                    id="btn-view-final"
-                    type="button"
-                    class="hidden w-full py-4 rounded-2xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#38BDF8] to-[#A855F7] text-slate-950 shadow-[0_0_25px_rgba(56,189,248,0.4)] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                >
-                    <span>VIEW ISSUED PASSPORT (발급 여권 보기)</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                </button>
-            </div>
-        </section>
-
-        <!-- =========================================================
-             STEP 3: FINAL ISSUED TIME PASSPORT & THEME SWITCHER
-        ========================================================== -->
-        <section id="step-3" class="step-view">
-            <div class="text-center space-y-1.5">
-                <span class="inline-block px-3 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 font-mono-tech text-[10px] tracking-widest text-emerald-300">
-                    OFFICIAL RECORD VERIFIED
-                </span>
-                <h2 class="text-lg font-bold text-white">타임 패스포트 발급 완료</h2>
-            </div>
-
-            <!-- Theme Toggle Pill (Cosmic Cyan / Sunset Gold) -->
-            <div class="flex items-center justify-center gap-2 my-2">
-                <button
-                    id="btn-theme-cyan"
-                    type="button"
-                    class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#38BDF8]/20 border border-[#38BDF8] text-[#38BDF8] transition-all"
-                >
-                    Cosmic Cyan
-                </button>
-                <button
-                    id="btn-theme-gold"
-                    type="button"
-                    class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all"
-                >
-                    Sunset Gold
-                </button>
-            </div>
-
-            <!-- Final Digital Passport Card -->
-            <div id="final-passport" class="final-passport-card theme-cyan my-auto rounded-3xl p-5 relative overflow-hidden">
-                <div class="flex items-center justify-between border-b border-white/15 pb-4 mb-4">
-                    <div>
-                        <span class="font-mono-tech text-[10px] tracking-[0.2em] text-slate-400 block">PASSPORT HOLDER</span>
-                        <h3 id="final-holder-name" class="font-mono-tech text-2xl font-bold text-white mt-0.5">JIHUN</h3>
-                    </div>
-                    <div class="px-3 py-1.5 rounded-xl text-right" style="background: var(--p-badge-bg);">
-                        <span class="font-mono-tech text-[9px] tracking-widest block text-slate-300">STAMPED DATE</span>
-                        <span class="font-mono-tech text-xs font-bold" style="color: var(--p-badge-text);">2026.12.11</span>
-                    </div>
-                </div>
-
-                <!-- Passport Data Rows -->
-                <div class="space-y-3 text-xs mb-5">
-                    <div class="flex justify-between items-center py-1.5 border-b border-white/10">
-                        <span class="text-slate-400">SERIAL CODE</span>
-                        <span id="serial-code-text" class="font-mono-tech font-bold text-white tracking-wider">TP-2026-8492-KR</span>
-                    </div>
-                    <div class="flex justify-between items-center py-1.5 border-b border-white/10">
-                        <span class="text-slate-400">ROUTE</span>
-                        <span class="font-mono-tech font-semibold text-slate-200">SEOUL → GLOBAL STAGE</span>
-                    </div>
-                    <div class="flex justify-between items-center py-1.5">
-                        <span class="text-slate-400">LISTENING RECORD</span>
-                        <span class="font-mono-tech font-bold" style="color: var(--p-accent);">342 HOURS</span>
-                    </div>
-                </div>
-
-                <!-- Holographic Stamp Seal & Barcode Footer -->
-                <div class="p-3.5 rounded-2xl bg-black/35 border border-white/10 flex items-center justify-between">
-                    <div class="space-y-1">
-                        <span class="font-mono-tech text-[10px] tracking-widest text-slate-400 block">STAGE CLEARANCE</span>
-                        <p class="text-xs font-semibold text-white">2026 GLOBAL ARCHIVE PASS</p>
-                    </div>
-                    <div class="w-12 h-12 rounded-full border border-dashed flex items-center justify-center font-mono-tech text-[9px] font-bold text-center leading-tight" style="border-color: var(--p-accent); color: var(--p-accent);">
-                        2026<br>VERIFIED
-                    </div>
-                </div>
-            </div>
-
-            <!-- Share & Restart Demo Actions -->
-            <div class="space-y-2.5 pt-2">
-                <button
-                    id="btn-copy-passport"
-                    type="button"
-                    class="w-full py-3.5 rounded-2xl font-bold text-sm bg-white text-slate-950 active:scale-[0.98] transition-all shadow-lg"
-                >
-                    SHARE PASSPORT CODE (여권 코드 복사)
-                </button>
-                <button
-                    id="btn-restart-demo"
-                    type="button"
-                    class="w-full py-3 rounded-2xl font-mono-tech text-xs font-semibold tracking-wider text-slate-300 bg-white/5 border border-white/15 hover:bg-white/10 active:scale-[0.98] transition-all"
-                >
-                    RESTART DEMO
-                </button>
-            </div>
-        </section>
+      </div>
     </div>
 
-    <script>
-        (function () {
-            // Application State
-            let currentStep = 1;
-            let holderName = 'JIHUN';
-            let isStamped = false;
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goScreen(2)">시간여행 시작하기 (START)</button>
+    </div>
+  </section>
 
-            // Step Views & Indicators
-            const stepViews = {
-                1: document.getElementById('step-1'),
-                2: document.getElementById('step-2'),
-                3: document.getElementById('step-3')
-            };
-            const indicators = document.getElementById('progress-indicators').children;
+  <!-- SCREEN 2: PAST (RIA) -->
+  <section class="screen" id="screen2">
+    <div>
+      <span class="badge badge-gold">01 / PAST · MEMORY ARCHIVE</span>
+      <h1>첫 입덕의 순간을<br>기억하시나요?</h1>
 
-            // Step 1 Elements
-            const inputNickname = document.getElementById('input-nickname');
-            const btnIssueStart = document.getElementById('btn-issue-start');
+      <div class="guide-box">
+        <div class="avatar-circle av-ria">RIA</div>
+        <div class="guide-text">
+          <span class="guide-name" style="color: #fde047;">리아 (LEADER / MAIN VOCAL)</span>
+          "길게 적지 않아도 괜찮아요. 당신의 첫 입덕 연도를 고르고, 떠오르는 한 문장만 남겨주세요."
+        </div>
+      </div>
 
-            // Step 2 Elements
-            const step2Heading = document.getElementById('step2-heading');
-            const cardPassengerName = document.getElementById('card-passenger-name');
-            const holoCard = document.getElementById('holo-memory-card');
-            const foilReflection = document.getElementById('foil-reflection');
-            const cardStatusHint = document.getElementById('card-status-hint');
-            const btnStampPassport = document.getElementById('btn-stamp-passport');
-            const btnViewFinal = document.getElementById('btn-view-final');
+      <div class="grid-2" id="eraGrid">
+        <div class="choice-card" onclick="selectEra('1990s', this)">
+          <strong>1990s</strong>
+          <span>1세대 태동과 카세트테이프</span>
+        </div>
+        <div class="choice-card" onclick="selectEra('2000s', this)">
+          <strong>2000s</strong>
+          <span>MP3와 교복 시절의 열기</span>
+        </div>
+        <div class="choice-card selected-gold" onclick="selectEra('2010s', this)">
+          <strong>2010s</strong>
+          <span>스트리밍과 글로벌 팬덤의 시작</span>
+        </div>
+        <div class="choice-card" onclick="selectEra('2020s', this)">
+          <strong>2020s</strong>
+          <span>버추얼과 새로운 무대의 시대</span>
+        </div>
+      </div>
 
-            // Step 3 Elements
-            const finalPassport = document.getElementById('final-passport');
-            const finalHolderName = document.getElementById('final-holder-name');
-            const serialCodeText = document.getElementById('serial-code-text');
-            const btnThemeCyan = document.getElementById('btn-theme-cyan');
-            const btnThemeGold = document.getElementById('btn-theme-gold');
-            const btnCopyPassport = document.getElementById('btn-copy-passport');
-            const btnRestartDemo = document.getElementById('btn-restart-demo');
-            const toastBanner = document.getElementById('toast-banner');
+      <div class="input-group">
+        <label>
+          <span>나의 첫 기억 한 문장 (선택 입력)</span>
+          <span id="charCount">0 / 80자</span>
+        </label>
+        <textarea id="memoryInput" maxlength="80" placeholder="예: 야자 끝나고 친구랑 이어폰 나눠 끼고 처음 뮤비 봤던 밤 (비워두면 기본 문구가 들어갑니다)" oninput="updateCount()"></textarea>
+      </div>
+    </div>
 
-            // Toast Helper
-            let toastTimer = null;
-            function showToast(msg) {
-                toastBanner.textContent = msg;
-                toastBanner.classList.add('visible');
-                clearTimeout(toastTimer);
-                toastTimer = setTimeout(() => {
-                    toastBanner.classList.remove('visible');
-                }, 2200);
-            }
+    <div class="btn-row">
+      <button class="btn btn-prev" onclick="goScreen(1)">이전</button>
+      <button class="btn btn-gold" onclick="goScreen(3)">다음 무대로 이동</button>
+    </div>
+  </section>
 
-            // Switch Step Helper
-            function switchStep(nextStep) {
-                currentStep = nextStep;
-                Object.keys(stepViews).forEach((key) => {
-                    const idx = Number(key);
-                    stepViews[idx].classList.toggle('active', idx === nextStep);
-                });
+  <!-- SCREEN 3: PRESENT (SEON) -->
+  <section class="screen" id="screen3">
+    <div>
+      <span class="badge badge-aqua">02 / PRESENT · STAGE LINK</span>
+      <h1>지금 당신의 무대는<br>어디에서 열릴까요?</h1>
 
-                Array.from(indicators).forEach((dot, i) => {
-                    if (i + 1 === nextStep) {
-                        dot.className = 'h-1.5 w-6 rounded-full bg-[#38BDF8] transition-all duration-300';
-                    } else if (i + 1 < nextStep) {
-                        dot.className = 'h-1.5 w-2 rounded-full bg-[#A855F7] transition-all duration-300';
-                    } else {
-                        dot.className = 'h-1.5 w-2 rounded-full bg-white/20 transition-all duration-300';
-                    }
-                });
-            }
+      <div class="guide-box">
+        <div class="avatar-circle av-seon">SEON</div>
+        <div class="guide-text">
+          <span class="guide-name" style="color: #67e8f9;">세온 (MAIN DANCER / LEAD VOCAL)</span>
+          "서울, 도쿄, 시드니! 지금 당신의 기억과 가장 닮은 가상 월드투어 도시를 하나 골라줘!"
+        </div>
+      </div>
 
-            // Step 1 -> Step 2
-            btnIssueStart.addEventListener('click', () => {
-                const raw = inputNickname.value.trim();
-                holderName = raw ? raw.toUpperCase() : 'JIHUN';
-                cardPassengerName.textContent = holderName;
-                finalHolderName.textContent = holderName;
+      <div class="grid-1" id="cityGrid">
+        <div class="choice-card selected-aqua" onclick="selectCity('SEOUL', this)">
+          <strong>🇰🇷 SEOUL — NEON NIGHT STAGE</strong>
+          <span>잠실의 함성과 한강의 밤공기가 어우러진 열정의 무대</span>
+        </div>
+        <div class="choice-card" onclick="selectCity('TOKYO', this)">
+          <strong>🇯🇵 TOKYO — STARLIGHT DOME</strong>
+          <span>수만 개의 응원봉이 은하수처럼 빛나는 돔 콘서트 무대</span>
+        </div>
+        <div class="choice-card" onclick="selectCity('SYDNEY', this)">
+          <strong>🇦🇺 SYDNEY — HARBOUR WAVE</strong>
+          <span>푸른 바다와 야경 위로 음악의 파동이 퍼지는 야외 무대</span>
+        </div>
+      </div>
+    </div>
 
-                // Generate deterministic-looking unique serial code
-                const randomDigits = Math.floor(1000 + Math.random() * 9000);
-                serialCodeText.textContent = `TP-2026-${randomDigits}-KR`;
+    <div class="btn-row">
+      <button class="btn btn-prev" onclick="goScreen(2)">이전</button>
+      <button class="btn btn-aqua" onclick="goScreen(4)">미래 콘셉트 보기</button>
+    </div>
+  </section>
 
-                switchStep(2);
-            });
+  <!-- SCREEN 4: FUTURE (NOVA) -->
+  <section class="screen" id="screen4">
+    <div>
+      <span class="badge badge-violet">03 / FUTURE · FUTURE CREATE</span>
+      <h1>다가올 미래 콘서트는<br>어떤 모습일까요?</h1>
 
-            // 3D Tilt & Foil Reflection Logic for Step 2 Card
-            function applyCardTilt(clientX, clientY) {
-                const rect = holoCard.getBoundingClientRect();
-                const relX = (clientX - rect.left) / rect.width;
-                const relY = (clientY - rect.top) / rect.height;
+      <div class="guide-box">
+        <div class="avatar-circle av-nova">NOVA</div>
+        <div class="guide-text">
+          <span class="guide-name" style="color: #d8b4fe;">노바 (MAIN RAPPER / PRODUCER)</span>
+          "네가 고른 콘셉트에 맞춰 여권의 빛깔과 미래 무대 신호를 지금 바로 디자인해 줄게."
+        </div>
+      </div>
 
-                const rotateY = (relX - 0.5) * 22;
-                const rotateX = (0.5 - relY) * 22;
+      <div class="grid-1" id="conceptGrid">
+        <div class="choice-card" onclick="selectConcept('CYBER', this)">
+          <strong>⚡ CYBER — 홀로그램 시티</strong>
+          <span>시안 블루와 메탈릭 비트가 교차하는 디지털 가상 공간</span>
+        </div>
+        <div class="choice-card selected-violet" onclick="selectConcept('COSMIC', this)">
+          <strong>🌌 COSMIC — 별빛 궤도 유영</strong>
+          <span>바이올렛 성운 속에서 팬의 기억이 별이 되는 우주 무대</span>
+        </div>
+        <div class="choice-card" onclick="selectConcept('NATURE', this)">
+          <strong>🌿 NATURE — 에메랄드 오아시스</strong>
+          <span>초록빛 숲과 따뜻한 골드 조명이 감싸는 힐링 콘서트</span>
+        </div>
+      </div>
+    </div>
 
-                holoCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                foilReflection.style.transform = `translate(${(relX - 0.5) * 35}%, ${(relY - 0.5) * 35}%)`;
-            }
+    <div class="btn-row">
+      <button class="btn btn-prev" onclick="goScreen(3)">이전</button>
+      <button class="btn btn-violet" onclick="buildPassport()">TIME PASSPORT 발급</button>
+    </div>
+  </section>
 
-            function resetCardTilt() {
-                holoCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
-                foilReflection.style.transform = 'translate(0%, 0%)';
-            }
+  <!-- SCREEN 5: RESULT (TIME PASSPORT) -->
+  <section class="screen" id="screen5">
+    <div style="text-align: center;">
+      <span class="badge badge-gold" style="margin-bottom: 8px;">THE FIRST SIGNAL COMPLETED</span>
+      <h1 style="font-size: 22px; margin-bottom: 14px;">당신의 시간 여권이 발급되었습니다</h1>
 
-            holoCard.addEventListener('mousemove', (e) => {
-                applyCardTilt(e.clientX, e.clientY);
-            });
-            holoCard.addEventListener('mouseleave', resetCardTilt);
+      <!-- Visual 4:5 Passport Card -->
+      <div class="passport-wrapper theme-COSMIC" id="passportCard">
+        <div class="pp-top">
+          <div style="text-align: left;">
+            <div class="pp-sub">STARDIAR WORLD ARCHIVE</div>
+            <div class="pp-title">TIME<br>PASSPORT</div>
+          </div>
+          <div class="pp-stamp" id="ppStamp">MOMENT<br>2010s</div>
+        </div>
 
-            holoCard.addEventListener('touchmove', (e) => {
-                if (e.touches && e.touches.length > 0) {
-                    applyCardTilt(e.touches[0].clientX, e.touches[0].clientY);
-                }
-            }, { passive: true });
-            holoCard.addEventListener('touchend', resetCardTilt);
+        <div class="pp-body" style="text-align: left;">
+          <div class="pp-field">
+            <label>MY FIRST ERA (PAST · RIA)</label>
+            <div class="val" id="resEra">2010s</div>
+          </div>
 
-            // Particle Burst Effect on Stamp Impact
-            function spawnStampParticles() {
-                const colors = ['#38BDF8', '#A855F7', '#FBBF24', '#FFFFFF'];
-                const rect = holoCard.getBoundingClientRect();
-                const originX = rect.width - 65;
-                const originY = rect.height - 85;
+          <div class="pp-field">
+            <label>FIRST MEMORY SIGNAL</label>
+            <div class="pp-memory-box" id="resMemory">음악과 함께 반짝이던 나의 첫 순간</div>
+          </div>
 
-                for (let i = 0; i < 16; i++) {
-                    const dot = document.createElement('span');
-                    dot.className = 'stamp-particle';
-                    const angle = (Math.PI * 2 * i) / 16;
-                    const dist = 35 + Math.random() * 45;
-                    dot.style.left = `${originX}px`;
-                    dot.style.top = `${originY}px`;
-                    dot.style.backgroundColor = colors[i % colors.length];
-                    dot.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
-                    dot.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
-                    holoCard.appendChild(dot);
+          <div style="display: flex; justify-content: space-between; gap: 10px;">
+            <div class="pp-field">
+              <label>WORLD STAGE (SEON)</label>
+              <div class="val" id="resCity" style="font-size: 14px;">SEOUL</div>
+            </div>
+            <div class="pp-field" style="text-align: right;">
+              <label>FUTURE STAGE (NOVA)</label>
+              <div class="val" id="resConcept" style="font-size: 14px;">COSMIC</div>
+            </div>
+          </div>
+        </div>
 
-                    setTimeout(() => {
-                        if (dot.parentNode) dot.parentNode.removeChild(dot);
-                    }, 750);
-                }
-            }
+        <div class="pp-footer">
+          <span>GUIDE: ECHO:ERA</span>
+          <span>CHRONOWAVE STUDIO</span>
+        </div>
+      </div>
+    </div>
 
-            // Stamp Passport Action
-            function triggerStamp() {
-                if (isStamped) return;
-                isStamped = true;
-                holoCard.classList.add('stamped');
-                spawnStampParticles();
+    <div class="btn-row" style="flex-direction: column; gap: 8px;">
+      <button class="btn btn-primary" onclick="downloadPassportPNG()">📥 여권 이미지 저장하기 (PNG)</button>
+      <button class="btn btn-prev" style="flex: 1; font-size: 13px; padding: 11px;" onclick="goScreen(1)">처음부터 다시 만들기</button>
+    </div>
+  </section>
+</div>
 
-                step2Heading.textContent = '✨ 홀로그램 스탬프 인증이 완료되었습니다!';
-                cardStatusHint.textContent = '✅ 2026.12.11 STAMP VERIFIED';
-                cardStatusHint.className = 'text-emerald-300 font-semibold';
+<!-- Hidden Canvas for Clean High-Res PNG Export -->
+<canvas id="exportCanvas" width="800" height="1000" style="display:none;"></canvas>
 
-                btnStampPassport.classList.add('hidden');
-                btnViewFinal.classList.remove('hidden');
-                showToast('스탬프 발급 완료! (2026.12.11)');
-            }
+<!-- Mentor / KPI Note Modal -->
+<div class="modal-overlay" id="mentorModal" onclick="if(event.target===this) toggleModal(false)">
+  <div class="modal-card">
+    <h3>📌 기획 의도 및 검증 지표 (MVP)</h3>
+    <div class="modal-section">
+      <strong>1. 핵심 설계 원칙</strong>
+      가상 아이돌(ECHO:ERA)이 팬의 기억을 대신하지 않고, 3번의 선택을 돕는 UI 가이드 역할만 수행하여 팬 자신이 주인공이 되도록 설계했습니다.
+    </div>
+    <div class="modal-section">
+      <strong>2. 소규모 사용자 테스트 KPI (목표)</strong>
+      • <strong>체험 완료율:</strong> 시작자 대비 최종 여권 도달 비율 (목표: 6명 중 5명 이상)<br>
+      • <strong>PNG 저장률:</strong> 결과 도달자 중 실제 이미지 다운로드 비율<br>
+      • <strong>체험 시간:</strong> 이탈 없이 5분 이내 완료 여부 검증
+    </div>
+    <div class="modal-section">
+      <strong>3. 단계별 확장 로드맵</strong>
+      • <strong>Phase 1 (현재):</strong> 5화면 모바일 웹 + 4:5 PNG 저장 구현<br>
+      • <strong>Phase 2:</strong> 안내 캐릭터(리아 2D) 유무에 따른 이해도 A/B 비교<br>
+      • <strong>Phase 3~4:</strong> 3인조 IP 고도화 및 Unity 기반 XR 공연장 검토
+    </div>
+    <button class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 6px;" onclick="toggleModal(false)">닫기</button>
+  </div>
+</div>
 
-            btnStampPassport.addEventListener('click', triggerStamp);
-            holoCard.addEventListener('click', triggerStamp);
+<script>
+  const state = {
+    era: '2010s',
+    memory: '',
+    city: 'SEOUL',
+    concept: 'COSMIC'
+  };
 
-            // Step 2 -> Step 3
-            btnViewFinal.addEventListener('click', () => {
-                switchStep(3);
-            });
+  function goScreen(num) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + num).classList.add('active');
 
-            // Step 3 Theme Toggle (Cosmic Cyan / Sunset Gold)
-            btnThemeCyan.addEventListener('click', () => {
-                finalPassport.classList.remove('theme-gold');
-                finalPassport.classList.add('theme-cyan');
+    const pb = document.getElementById('progressBar');
+    if (num === 1) {
+      pb.style.visibility = 'hidden';
+    } else {
+      pb.style.visibility = 'visible';
+      document.getElementById('dot1').className = 'step-dot ' + (num >= 2 ? 'active-gold' : '');
+      document.getElementById('dot2').className = 'step-dot ' + (num >= 3 ? 'active-aqua' : '');
+      document.getElementById('dot3').className = 'step-dot ' + (num >= 4 ? 'active-violet' : '');
+      document.getElementById('dot4').className = 'step-dot ' + (num >= 5 ? 'active-gold' : '');
+    }
+    window.scrollTo(0, 0);
+  }
 
-                btnThemeCyan.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#38BDF8]/20 border border-[#38BDF8] text-[#38BDF8] transition-all';
-                btnThemeGold.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all';
-            });
+  function selectEra(era, el) {
+    state.era = era;
+    document.querySelectorAll('#eraGrid .choice-card').forEach(c => c.classList.remove('selected-gold'));
+    el.classList.add('selected-gold');
+  }
 
-            btnThemeGold.addEventListener('click', () => {
-                finalPassport.classList.remove('theme-cyan');
-                finalPassport.classList.add('theme-gold');
+  function updateCount() {
+    const val = document.getElementById('memoryInput').value;
+    state.memory = val;
+    document.getElementById('charCount').innerText = val.length + ' / 80자';
+  }
 
-                btnThemeGold.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#FBBF24]/20 border border-[#FBBF24] text-[#FBBF24] transition-all';
-                btnThemeCyan.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all';
-            });
+  function selectCity(city, el) {
+    state.city = city;
+    document.querySelectorAll('#cityGrid .choice-card').forEach(c => c.classList.remove('selected-aqua'));
+    el.classList.add('selected-aqua');
+  }
 
-            // Share / Copy Code
-            btnCopyPassport.addEventListener('click', () => {
-                const text = `[TIME PASSPORT 2026] ${holderName} | ${serialCodeText.textContent} | 342 HOURS LISTENED`;
-                const helper = document.createElement('textarea');
-                helper.value = text;
-                document.body.appendChild(helper);
-                helper.select();
-                try {
-                    document.execCommand('copy');
-                    showToast('타임 패스포트 코드가 복사되었습니다!');
-                } catch (err) {
-                    showToast('여권 인증 정보가 저장되었습니다!');
-                }
-                document.body.removeChild(helper);
-            });
+  function selectConcept(concept, el) {
+    state.concept = concept;
+    document.querySelectorAll('#conceptGrid .choice-card').forEach(c => c.classList.remove('selected-violet'));
+    el.classList.add('selected-violet');
+  }
 
-            // Restart Demo
-            btnRestartDemo.addEventListener('click', () => {
-                isStamped = false;
-                holoCard.classList.remove('stamped');
-                step2Heading.textContent = '카드를 기울이거나 드래그해 홀로그램을 확인하세요';
-                cardStatusHint.textContent = '✨ 드래그하여 홀로그램 반사 확인';
-                cardStatusHint.className = 'text-[#38BDF8] font-medium';
+  function buildPassport() {
+    const finalMemory = state.memory.trim() || '음악과 함께 반짝이던 나의 첫 입덕 순간';
+    document.getElementById('resEra').innerText = state.era;
+    document.getElementById('ppStamp').innerHTML = 'MOMENT<br>' + state.era;
+    document.getElementById('resMemory').innerText = finalMemory;
+    document.getElementById('resCity').innerText = state.city;
+    document.getElementById('resConcept').innerText = state.concept;
 
-                btnViewFinal.classList.add('hidden');
-                btnStampPassport.classList.remove('hidden');
+    const card = document.getElementById('passportCard');
+    card.className = 'passport-wrapper theme-' + state.concept;
+    goScreen(5);
+  }
 
-                // Reset theme to Cosmic Cyan
-                finalPassport.classList.remove('theme-gold');
-                finalPassport.classList.add('theme-cyan');
-                btnThemeCyan.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#38BDF8]/20 border border-[#38BDF8] text-[#38BDF8] transition-all';
-                btnThemeGold.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all';
+  function toggleModal(open) {
+    const m = document.getElementById('mentorModal');
+    if (open) m.classList.add('open');
+    else m.classList.remove('open');
+  }
 
-                switchStep(1);
-            });
-        })();
-    </script>
+  // Zero-dependency Canvas PNG Generator (4:5 Ratio: 800x1000)
+  function downloadPassportPNG() {
+    const canvas = document.getElementById('exportCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Background Gradient by Concept
+    const grad = ctx.createLinearGradient(0, 0, 800, 1000);
+    if (state.concept === 'CYBER') {
+      grad.addColorStop(0, '#0f172a');
+      grad.addColorStop(0.55, '#1e1b4b');
+      grad.addColorStop(1, '#06b6d4');
+    } else if (state.concept === 'NATURE') {
+      grad.addColorStop(0, '#064e3b');
+      grad.addColorStop(0.6, '#0f172a');
+      grad.addColorStop(1, '#eab308');
+    } else {
+      grad.addColorStop(0, '#090d16');
+      grad.addColorStop(0.55, '#3b0764');
+      grad.addColorStop(1, '#a855f7');
+    }
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 800, 1000);
+
+    // Outer Frame
+    ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(36, 36, 728, 928);
+
+    // Top Header
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('STARDIAR WORLD ARCHIVE', 72, 105);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 54px sans-serif';
+    ctx.fillText('TIME', 72, 168);
+    ctx.fillText('PASSPORT', 72, 226);
+
+    // Stamp Circle
+    ctx.save();
+    ctx.translate(650, 155);
+    ctx.rotate(-0.2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(0, 0, 62, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('MOMENT', 0, -6);
+    ctx.fillText(state.era, 0, 22);
+    ctx.restore();
+
+    // Divider
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(72, 265);
+    ctx.lineTo(728, 265);
+    ctx.stroke();
+
+    // Field 1: ERA
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('MY FIRST ERA (PAST · RIA)', 72, 330);
+    ctx.fillStyle = '#fde047';
+    ctx.font = '800 44px sans-serif';
+    ctx.fillText(state.era, 72, 385);
+
+    // Field 2: MEMORY BOX
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('FIRST MEMORY SIGNAL', 72, 460);
+
+    ctx.fillStyle = 'rgba(0,0,0,0.38)';
+    ctx.fillRect(72, 482, 656, 170);
+    ctx.fillStyle = '#eab308';
+    ctx.fillRect(72, 482, 8, 170);
+
+    // Wrap Korean text nicely
+    const text = state.memory.trim() || '음악과 함께 반짝이던 나의 첫 입덕 순간';
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '600 30px sans-serif';
+    wrapText(ctx, text, 104, 540, 600, 44);
+
+    // Field 3 & 4: STAGE & FUTURE
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('WORLD STAGE (SEON)', 72, 730);
+    ctx.fillStyle = '#67e8f9';
+    ctx.font = '800 38px sans-serif';
+    ctx.fillText(state.city, 72, 780);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('FUTURE STAGE (NOVA)', 430, 730);
+    ctx.fillStyle = '#d8b4fe';
+    ctx.font = '800 38px sans-serif';
+    ctx.fillText(state.concept, 430, 780);
+
+    // Footer
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    ctx.beginPath();
+    ctx.moveTo(72, 865);
+    ctx.lineTo(728, 865);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.font = 'bold 22px sans-serif';
+    ctx.fillText('GUIDE: ECHO:ERA (RIA · SEON · NOVA)', 72, 915);
+    ctx.textAlign = 'right';
+    ctx.fillText('CHRONOWAVE STUDIO', 728, 915);
+    ctx.textAlign = 'left';
+
+    // Trigger Download
+    const link = document.createElement('a');
+    link.download = 'KPOP_TIME_PASSPORT.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    let line = '';
+    let currentY = y;
+    for (let i = 0; i < text.length; i++) {
+      const testLine = line + text[i];
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && i > 0) {
+        ctx.fillText(line, x, currentY);
+        line = text[i];
+        currentY += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line, x, currentY);
+  }
+</script>
+
 </body>
 </html>
