@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TIME PASSPORT // 2026 EDITION</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Crisp Korean & English Web Fonts -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cosmic: #070B19;
+            --accent-cyan: #38BDF8;
+            --accent-violet: #A855F7;
+            --accent-gold: #FBBF24;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #03050C;
+            color: #F8FAFC;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .font-mono-tech {
+            font-family: 'Space Grotesk', 'Inter', monospace;
+        }
+
+        /* Subtle CSS Starfield & Glowing Cosmic Orbs */
+        .starfield {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(1.5px 1.5px at 20% 30%, rgba(255, 255, 255, 0.45), transparent),
+                radial-gradient(1px 1px at 75% 15%, rgba(56, 189, 248, 0.6), transparent),
+                radial-gradient(1.5px 1.5px at 85% 65%, rgba(168, 85, 247, 0.5), transparent),
+                radial-gradient(1px 1px at 35% 80%, rgba(251, 191, 36, 0.5), transparent),
+                radial-gradient(1px 1px at 55% 45%, rgba(255, 255, 255, 0.35), transparent);
+            background-size: 220px 220px;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cosmic-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(75px);
+            pointer-events: none;
+            z-index: 0;
+            animation: driftOrb 9s ease-in-out infinite alternate;
+        }
+
+        @keyframes driftOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(18px, -22px) scale(1.12); }
+        }
+
+        /* Animated Holographic Border for Step 1 Cover */
+        .holo-border-box {
+            position: relative;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg, #38BDF8, #A855F7, #FBBF24, #38BDF8);
+            background-size: 300% 300%;
+            animation: borderGradientFlow 5s ease infinite;
+            box-shadow: 0 18px 45px -10px rgba(56, 189, 248, 0.25);
+        }
+
+        @keyframes borderGradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Step Transitions */
+        .step-view {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.5rem;
+            padding-top: 4rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(18px) scale(0.97);
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.45s;
+            z-index: 10;
+        }
+
+        .step-view.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        /* 3D Hologram Memory Card */
+        .card-stage {
+            perspective: 1100px;
+        }
+
+        .holo-card {
+            position: relative;
+            background: linear-gradient(155deg, rgba(16, 24, 48, 0.94), rgba(9, 13, 28, 0.98));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(168, 85, 247, 0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.14s ease-out, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        /* Dynamic Shimmering Foil Reflection */
+        .foil-sheen {
+            position: absolute;
+            inset: -50%;
+            background: linear-gradient(
+                115deg,
+                transparent 30%,
+                rgba(56, 189, 248, 0.22) 44%,
+                rgba(168, 85, 247, 0.28) 50%,
+                rgba(251, 191, 36, 0.22) 56%,
+                transparent 70%
+            );
+            background-size: 200% 200%;
+            mix-blend-mode: screen;
+            opacity: 0.45;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .holo-card.stamped .foil-sheen {
+            opacity: 0.9;
+            animation: foilAutoShimmer 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes foilAutoShimmer {
+            0% { transform: translate(-10%, -10%) rotate(0deg); }
+            100% { transform: translate(10%, 10%) rotate(4deg); }
+        }
+
+        /* Stamp Impact Animation */
+        .passport-stamp {
+            transform: scale(2.6) rotate(-28deg);
+            opacity: 0;
+            transition: transform 0.42s cubic-bezier(0.22, 1.61, 0.36, 1), opacity 0.28s ease-out;
+        }
+
+        .holo-card.stamped .passport-stamp {
+            transform: scale(1) rotate(-11deg);
+            opacity: 1;
+        }
+
+        /* Particle Burst Dots */
+        .stamp-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 30;
+            animation: particleExplode 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes particleExplode {
+            0% {
+                transform: translate(0, 0) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Boarding Pass Perforation Divider */
+        .ticket-cutout {
+            position: relative;
+            border-top: 1.5px dashed rgba(255, 255, 255, 0.16);
+        }
+        .ticket-cutout::before,
+        .ticket-cutout::after {
+            content: '';
+            position: absolute;
+            top: -9px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #070B19;
+        }
+        .ticket-cutout::before { left: -29px; }
+        .ticket-cutout::after { right: -29px; }
+
+        /* Theme Variants for Step 3 Final Passport */
+        .theme-cyan {
+            --p-border: rgba(56, 189, 248, 0.45);
+            --p-glow: rgba(56, 189, 248, 0.25);
+            --p-grad-from: rgba(14, 30, 58, 0.95);
+            --p-grad-to: rgba(18, 14, 42, 0.98);
+            --p-badge-bg: rgba(56, 189, 248, 0.15);
+            --p-badge-text: #38BDF8;
+            --p-accent: #38BDF8;
+        }
+
+        .theme-gold {
+            --p-border: rgba(251, 191, 36, 0.5);
+            --p-glow: rgba(251, 191, 36, 0.25);
+            --p-grad-from: rgba(45, 28, 16, 0.95);
+            --p-grad-to: rgba(24, 14, 32, 0.98);
+            --p-badge-bg: rgba(251, 191, 36, 0.16);
+            --p-badge-text: #FBBF24;
+            --p-accent: #FBBF24;
+        }
+
+        .final-passport-card {
+            background: linear-gradient(155deg, var(--p-grad-from), var(--p-grad-to));
+            border: 1.5px solid var(--p-border);
+            box-shadow: 0 22px 48px -12px rgba(0, 0, 0, 0.85), 0 0 32px var(--p-glow);
+            transition: all 0.4s ease;
+        }
+
+        /* Non-blocking Toast Banner */
+        .toast-banner {
+            transform: translate(-50%, -18px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .toast-banner.visible {
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-0 sm:p-4">
+
+    <!-- 9:16 Centered Mobile Prototype Frame -->
+    <div id="prototype-container" class="relative w-full h-[100dvh] sm:w-[390px] sm:h-[812px] sm:rounded-[38px] bg-[#070B19] sm:border sm:border-white/15 sm:shadow-[0_0_70px_rgba(56,189,248,0.18)] overflow-hidden flex flex-col">
+
+        <!-- Pure CSS Cosmic Starfield & Ambient Orbs -->
+        <div class="starfield"></div>
+        <div class="cosmic-orb w-60 h-60 bg-[#38BDF8]/20 -top-12 -left-12"></div>
+        <div class="cosmic-orb w-64 h-64 bg-[#A855F7]/20 bottom-8 -right-14" style="animation-delay: -4s;"></div>
+
+        <!-- Custom Toast Notification -->
+        <div id="toast-banner" class="toast-banner absolute top-14 left-1/2 z-50 px-4 py-2 rounded-full bg-slate-900/90 border border-white/20 backdrop-blur-md text-xs font-medium text-white shadow-xl whitespace-nowrap pointer-events-none">
+            알림 메시지
+        </div>
+
+        <!-- Top Navigation & Step Indicator -->
+        <header class="relative z-20 px-6 pt-5 pb-2 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#38BDF8] shadow-[0_0_8px_#38BDF8]"></span>
+                <span class="font-mono-tech text-xs font-bold tracking-[0.18em] text-slate-200">TIME PASSPORT</span>
+            </div>
+            <div class="flex items-center gap-1.5" id="progress-indicators">
+                <span class="h-1.5 w-6 rounded-full bg-[#38BDF8] transition-all duration-300"></span>
+                <span class="h-1.5 w-2 rounded-full bg-white/20 transition-all duration-300"></span>
+                <span class="h-1.5 w-2 rounded-full bg-white/20 transition-all duration-300"></span>
+            </div>
+        </header>
+
+        <!-- =========================================================
+             STEP 1: ENTRY & BOARDING CHECK-IN
+        ========================================================== -->
+        <section id="step-1" class="step-view active">
+            <div class="my-auto space-y-6">
+                <!-- Futuristic Holographic Passport Cover -->
+                <div class="holo-border-box">
+                    <div class="bg-[#090E21] rounded-[22px] p-6 relative overflow-hidden">
+                        <!-- Subtle Inner Grid Pattern -->
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.18),transparent_60%)] pointer-events-none"></div>
+
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-[#38BDF8]/10 border border-[#38BDF8]/30 font-mono-tech text-[10px] font-bold tracking-widest text-[#38BDF8]">
+                                2026 EDITION
+                            </span>
+                            <!-- Emblem Icon -->
+                            <div class="w-9 h-9 rounded-full border border-[#FBBF24]/40 bg-[#FBBF24]/10 flex items-center justify-center text-[#FBBF24]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5 mb-6">
+                            <p class="font-mono-tech text-xs tracking-[0.25em] text-[#A855F7] font-semibold">INTERACTIVE ARCHIVE</p>
+                            <h1 class="font-mono-tech text-3xl font-bold tracking-tight text-white leading-tight">
+                                TIME PASSPORT<br>
+                                <span class="bg-gradient-to-r from-[#38BDF8] via-[#A855F7] to-[#FBBF24] bg-clip-text text-transparent">
+                                    // 2026 EDITION
+                                </span>
+                            </h1>
+                        </div>
+
+                        <p class="text-xs text-slate-300 leading-relaxed mb-5">
+                            당신의 음악 여정과 무대의 기억을 기록하는 디지털 탑승권입니다. 닉네임을 확인하고 여권을 발급받으세요.
+                        </p>
+
+                        <!-- Quick Nickname Input -->
+                        <div class="space-y-1.5">
+                            <label for="input-nickname" class="block text-[11px] font-semibold text-slate-300 tracking-wide">
+                                PASSENGER NICKNAME (탑승자 닉네임)
+                            </label>
+                            <input
+                                type="text"
+                                id="input-nickname"
+                                value="JIHUN"
+                                placeholder="지훈"
+                                maxlength="16"
+                                class="w-full px-4 py-3 rounded-xl bg-[#050814] border border-white/15 text-sm font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-[#38BDF8] transition-colors"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glowing Primary Action CTA -->
+            <div class="pt-3">
+                <button
+                    id="btn-issue-start"
+                    type="button"
+                    class="w-full py-4 rounded-2xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#A855F7] text-slate-950 shadow-[0_0_28px_rgba(56,189,248,0.45)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                >
+                    <span>ISSUE PASSPORT (여권 발급하기)</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             STEP 2: INTERACTIVE 3D HOLOGRAM MEMORY CARD
+        ========================================================== -->
+        <section id="step-2" class="step-view">
+            <div class="text-center space-y-1">
+                <span class="font-mono-tech text-[11px] tracking-[0.2em] text-[#38BDF8] uppercase">BOARDING PASS CHECK</span>
+                <h2 id="step2-heading" class="text-base font-bold text-white">카드를 기울이거나 드래그해 홀로그램을 확인하세요</h2>
+            </div>
+
+            <!-- 3D Tilt & Foil Card Container -->
+            <div class="card-stage my-auto py-2">
+                <div id="holo-memory-card" class="holo-card rounded-3xl p-5 cursor-grab active:cursor-grabbing">
+                    <!-- Dynamic Shimmering Foil Layer -->
+                    <div id="foil-reflection" class="foil-sheen"></div>
+
+                    <!-- Card Header -->
+                    <div class="flex items-center justify-between mb-4 relative z-10">
+                        <div>
+                            <span class="font-mono-tech text-[10px] tracking-widest text-[#FBBF24] block">FAN MEMORY ARCHIVE</span>
+                            <h3 id="card-passenger-name" class="font-mono-tech text-lg font-bold text-white">JIHUN</h3>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/15 font-mono-tech text-[10px] text-slate-200">
+                            GATE 2026
+                        </span>
+                    </div>
+
+                    <!-- Flight Route Banner: SEOUL -> GLOBAL STAGE -->
+                    <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 mb-4 relative z-10">
+                        <div class="flex items-center justify-between text-xs">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">DEPARTURE</span>
+                                <span class="font-mono-tech font-bold text-white text-sm">SEOUL</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-[#38BDF8]">
+                                <span class="w-5 h-[1px] bg-[#38BDF8]/50"></span>
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                                </svg>
+                                <span class="w-5 h-[1px] bg-[#A855F7]/50"></span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-slate-400 block">ARRIVAL</span>
+                                <span class="font-mono-tech font-bold text-[#38BDF8] text-sm">GLOBAL STAGE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Featured Stage Memory Box -->
+                    <div class="relative rounded-2xl p-4 mb-4 border border-[#A855F7]/30 bg-gradient-to-br from-[#1E1B4B]/80 via-[#311042]/60 to-[#0F172A]/90 overflow-hidden z-10">
+                        <span class="font-mono-tech text-[10px] tracking-widest text-[#A855F7] block mb-1">TOP ARTIST / STAGE MEMORY</span>
+                        <p class="font-mono-tech text-lg font-bold text-white tracking-tight">"AURORA ENCORE TOUR"</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">TOTAL IMMERSION</span>
+                                <span class="font-mono-tech text-sm font-bold text-[#FBBF24]">342 HOURS LISTENED</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-[#FBBF24]/15 border border-[#FBBF24]/30 font-mono-tech text-[10px] text-[#FBBF24]">
+                                TOP 0.5%
+                            </span>
+                        </div>
+
+                        <!-- Animated Hologram Ink Stamp (Revealed on Stamp Click) -->
+                        <div id="stamp-emblem" class="passport-stamp absolute right-3 bottom-2 pointer-events-none z-20">
+                            <div class="w-20 h-20 rounded-full border-2 border-dashed border-[#38BDF8] bg-[#38BDF8]/20 backdrop-blur-md flex flex-col items-center justify-center text-center shadow-[0_0_24px_rgba(56,189,248,0.7)]">
+                                <span class="font-mono-tech text-[8px] font-bold tracking-widest text-[#FBBF24]">APPROVED</span>
+                                <span class="font-mono-tech text-[11px] font-extrabold text-white leading-tight">2026.12.11<br>STAMPED</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Perforated Bottom Line -->
+                    <div class="ticket-cutout pt-3 flex items-center justify-between text-[11px] text-slate-400 relative z-10">
+                        <span id="card-status-hint" class="text-[#38BDF8] font-medium">✨ 드래그하여 홀로그램 반사 확인</span>
+                        <span class="font-mono-tech">SEAT 01-A</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Controls: Stamp Passport -> Proceed -->
+            <div class="space-y-2.5 pt-2">
+                <button
+                    id="btn-stamp-passport"
+                    type="button"
+                    class="w-full py-4 rounded-2xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#FBBF24] via-[#F59E0B] to-[#EC4899] text-slate-950 shadow-[0_0_25px_rgba(251,191,36,0.35)] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                >
+                    <span>STAMP PASSPORT (스탬프 찍기)</span>
+                </button>
+
+                <button
+                    id="btn-view-final"
+                    type="button"
+                    class="hidden w-full py-4 rounded-2xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#38BDF8] to-[#A855F7] text-slate-950 shadow-[0_0_25px_rgba(56,189,248,0.4)] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                >
+                    <span>VIEW ISSUED PASSPORT (발급 여권 보기)</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             STEP 3: FINAL ISSUED TIME PASSPORT & THEME SWITCHER
+        ========================================================== -->
+        <section id="step-3" class="step-view">
+            <div class="text-center space-y-1.5">
+                <span class="inline-block px-3 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 font-mono-tech text-[10px] tracking-widest text-emerald-300">
+                    OFFICIAL RECORD VERIFIED
+                </span>
+                <h2 class="text-lg font-bold text-white">타임 패스포트 발급 완료</h2>
+            </div>
+
+            <!-- Theme Toggle Pill (Cosmic Cyan / Sunset Gold) -->
+            <div class="flex items-center justify-center gap-2 my-2">
+                <button
+                    id="btn-theme-cyan"
+                    type="button"
+                    class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#38BDF8]/20 border border-[#38BDF8] text-[#38BDF8] transition-all"
+                >
+                    Cosmic Cyan
+                </button>
+                <button
+                    id="btn-theme-gold"
+                    type="button"
+                    class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all"
+                >
+                    Sunset Gold
+                </button>
+            </div>
+
+            <!-- Final Digital Passport Card -->
+            <div id="final-passport" class="final-passport-card theme-cyan my-auto rounded-3xl p-5 relative overflow-hidden">
+                <div class="flex items-center justify-between border-b border-white/15 pb-4 mb-4">
+                    <div>
+                        <span class="font-mono-tech text-[10px] tracking-[0.2em] text-slate-400 block">PASSPORT HOLDER</span>
+                        <h3 id="final-holder-name" class="font-mono-tech text-2xl font-bold text-white mt-0.5">JIHUN</h3>
+                    </div>
+                    <div class="px-3 py-1.5 rounded-xl text-right" style="background: var(--p-badge-bg);">
+                        <span class="font-mono-tech text-[9px] tracking-widest block text-slate-300">STAMPED DATE</span>
+                        <span class="font-mono-tech text-xs font-bold" style="color: var(--p-badge-text);">2026.12.11</span>
+                    </div>
+                </div>
+
+                <!-- Passport Data Rows -->
+                <div class="space-y-3 text-xs mb-5">
+                    <div class="flex justify-between items-center py-1.5 border-b border-white/10">
+                        <span class="text-slate-400">SERIAL CODE</span>
+                        <span id="serial-code-text" class="font-mono-tech font-bold text-white tracking-wider">TP-2026-8492-KR</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-white/10">
+                        <span class="text-slate-400">ROUTE</span>
+                        <span class="font-mono-tech font-semibold text-slate-200">SEOUL → GLOBAL STAGE</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5">
+                        <span class="text-slate-400">LISTENING RECORD</span>
+                        <span class="font-mono-tech font-bold" style="color: var(--p-accent);">342 HOURS</span>
+                    </div>
+                </div>
+
+                <!-- Holographic Stamp Seal & Barcode Footer -->
+                <div class="p-3.5 rounded-2xl bg-black/35 border border-white/10 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <span class="font-mono-tech text-[10px] tracking-widest text-slate-400 block">STAGE CLEARANCE</span>
+                        <p class="text-xs font-semibold text-white">2026 GLOBAL ARCHIVE PASS</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-full border border-dashed flex items-center justify-center font-mono-tech text-[9px] font-bold text-center leading-tight" style="border-color: var(--p-accent); color: var(--p-accent);">
+                        2026<br>VERIFIED
+                    </div>
+                </div>
+            </div>
+
+            <!-- Share & Restart Demo Actions -->
+            <div class="space-y-2.5 pt-2">
+                <button
+                    id="btn-copy-passport"
+                    type="button"
+                    class="w-full py-3.5 rounded-2xl font-bold text-sm bg-white text-slate-950 active:scale-[0.98] transition-all shadow-lg"
+                >
+                    SHARE PASSPORT CODE (여권 코드 복사)
+                </button>
+                <button
+                    id="btn-restart-demo"
+                    type="button"
+                    class="w-full py-3 rounded-2xl font-mono-tech text-xs font-semibold tracking-wider text-slate-300 bg-white/5 border border-white/15 hover:bg-white/10 active:scale-[0.98] transition-all"
+                >
+                    RESTART DEMO
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        (function () {
+            // Application State
+            let currentStep = 1;
+            let holderName = 'JIHUN';
+            let isStamped = false;
+
+            // Step Views & Indicators
+            const stepViews = {
+                1: document.getElementById('step-1'),
+                2: document.getElementById('step-2'),
+                3: document.getElementById('step-3')
+            };
+            const indicators = document.getElementById('progress-indicators').children;
+
+            // Step 1 Elements
+            const inputNickname = document.getElementById('input-nickname');
+            const btnIssueStart = document.getElementById('btn-issue-start');
+
+            // Step 2 Elements
+            const step2Heading = document.getElementById('step2-heading');
+            const cardPassengerName = document.getElementById('card-passenger-name');
+            const holoCard = document.getElementById('holo-memory-card');
+            const foilReflection = document.getElementById('foil-reflection');
+            const cardStatusHint = document.getElementById('card-status-hint');
+            const btnStampPassport = document.getElementById('btn-stamp-passport');
+            const btnViewFinal = document.getElementById('btn-view-final');
+
+            // Step 3 Elements
+            const finalPassport = document.getElementById('final-passport');
+            const finalHolderName = document.getElementById('final-holder-name');
+            const serialCodeText = document.getElementById('serial-code-text');
+            const btnThemeCyan = document.getElementById('btn-theme-cyan');
+            const btnThemeGold = document.getElementById('btn-theme-gold');
+            const btnCopyPassport = document.getElementById('btn-copy-passport');
+            const btnRestartDemo = document.getElementById('btn-restart-demo');
+            const toastBanner = document.getElementById('toast-banner');
+
+            // Toast Helper
+            let toastTimer = null;
+            function showToast(msg) {
+                toastBanner.textContent = msg;
+                toastBanner.classList.add('visible');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    toastBanner.classList.remove('visible');
+                }, 2200);
+            }
+
+            // Switch Step Helper
+            function switchStep(nextStep) {
+                currentStep = nextStep;
+                Object.keys(stepViews).forEach((key) => {
+                    const idx = Number(key);
+                    stepViews[idx].classList.toggle('active', idx === nextStep);
+                });
+
+                Array.from(indicators).forEach((dot, i) => {
+                    if (i + 1 === nextStep) {
+                        dot.className = 'h-1.5 w-6 rounded-full bg-[#38BDF8] transition-all duration-300';
+                    } else if (i + 1 < nextStep) {
+                        dot.className = 'h-1.5 w-2 rounded-full bg-[#A855F7] transition-all duration-300';
+                    } else {
+                        dot.className = 'h-1.5 w-2 rounded-full bg-white/20 transition-all duration-300';
+                    }
+                });
+            }
+
+            // Step 1 -> Step 2
+            btnIssueStart.addEventListener('click', () => {
+                const raw = inputNickname.value.trim();
+                holderName = raw ? raw.toUpperCase() : 'JIHUN';
+                cardPassengerName.textContent = holderName;
+                finalHolderName.textContent = holderName;
+
+                // Generate deterministic-looking unique serial code
+                const randomDigits = Math.floor(1000 + Math.random() * 9000);
+                serialCodeText.textContent = `TP-2026-${randomDigits}-KR`;
+
+                switchStep(2);
+            });
+
+            // 3D Tilt & Foil Reflection Logic for Step 2 Card
+            function applyCardTilt(clientX, clientY) {
+                const rect = holoCard.getBoundingClientRect();
+                const relX = (clientX - rect.left) / rect.width;
+                const relY = (clientY - rect.top) / rect.height;
+
+                const rotateY = (relX - 0.5) * 22;
+                const rotateX = (0.5 - relY) * 22;
+
+                holoCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                foilReflection.style.transform = `translate(${(relX - 0.5) * 35}%, ${(relY - 0.5) * 35}%)`;
+            }
+
+            function resetCardTilt() {
+                holoCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                foilReflection.style.transform = 'translate(0%, 0%)';
+            }
+
+            holoCard.addEventListener('mousemove', (e) => {
+                applyCardTilt(e.clientX, e.clientY);
+            });
+            holoCard.addEventListener('mouseleave', resetCardTilt);
+
+            holoCard.addEventListener('touchmove', (e) => {
+                if (e.touches && e.touches.length > 0) {
+                    applyCardTilt(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+            holoCard.addEventListener('touchend', resetCardTilt);
+
+            // Particle Burst Effect on Stamp Impact
+            function spawnStampParticles() {
+                const colors = ['#38BDF8', '#A855F7', '#FBBF24', '#FFFFFF'];
+                const rect = holoCard.getBoundingClientRect();
+                const originX = rect.width - 65;
+                const originY = rect.height - 85;
+
+                for (let i = 0; i < 16; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'stamp-particle';
+                    const angle = (Math.PI * 2 * i) / 16;
+                    const dist = 35 + Math.random() * 45;
+                    dot.style.left = `${originX}px`;
+                    dot.style.top = `${originY}px`;
+                    dot.style.backgroundColor = colors[i % colors.length];
+                    dot.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+                    dot.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+                    holoCard.appendChild(dot);
+
+                    setTimeout(() => {
+                        if (dot.parentNode) dot.parentNode.removeChild(dot);
+                    }, 750);
+                }
+            }
+
+            // Stamp Passport Action
+            function triggerStamp() {
+                if (isStamped) return;
+                isStamped = true;
+                holoCard.classList.add('stamped');
+                spawnStampParticles();
+
+                step2Heading.textContent = '✨ 홀로그램 스탬프 인증이 완료되었습니다!';
+                cardStatusHint.textContent = '✅ 2026.12.11 STAMP VERIFIED';
+                cardStatusHint.className = 'text-emerald-300 font-semibold';
+
+                btnStampPassport.classList.add('hidden');
+                btnViewFinal.classList.remove('hidden');
+                showToast('스탬프 발급 완료! (2026.12.11)');
+            }
+
+            btnStampPassport.addEventListener('click', triggerStamp);
+            holoCard.addEventListener('click', triggerStamp);
+
+            // Step 2 -> Step 3
+            btnViewFinal.addEventListener('click', () => {
+                switchStep(3);
+            });
+
+            // Step 3 Theme Toggle (Cosmic Cyan / Sunset Gold)
+            btnThemeCyan.addEventListener('click', () => {
+                finalPassport.classList.remove('theme-gold');
+                finalPassport.classList.add('theme-cyan');
+
+                btnThemeCyan.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#38BDF8]/20 border border-[#38BDF8] text-[#38BDF8] transition-all';
+                btnThemeGold.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all';
+            });
+
+            btnThemeGold.addEventListener('click', () => {
+                finalPassport.classList.remove('theme-cyan');
+                finalPassport.classList.add('theme-gold');
+
+                btnThemeGold.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#FBBF24]/20 border border-[#FBBF24] text-[#FBBF24] transition-all';
+                btnThemeCyan.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all';
+            });
+
+            // Share / Copy Code
+            btnCopyPassport.addEventListener('click', () => {
+                const text = `[TIME PASSPORT 2026] ${holderName} | ${serialCodeText.textContent} | 342 HOURS LISTENED`;
+                const helper = document.createElement('textarea');
+                helper.value = text;
+                document.body.appendChild(helper);
+                helper.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('타임 패스포트 코드가 복사되었습니다!');
+                } catch (err) {
+                    showToast('여권 인증 정보가 저장되었습니다!');
+                }
+                document.body.removeChild(helper);
+            });
+
+            // Restart Demo
+            btnRestartDemo.addEventListener('click', () => {
+                isStamped = false;
+                holoCard.classList.remove('stamped');
+                step2Heading.textContent = '카드를 기울이거나 드래그해 홀로그램을 확인하세요';
+                cardStatusHint.textContent = '✨ 드래그하여 홀로그램 반사 확인';
+                cardStatusHint.className = 'text-[#38BDF8] font-medium';
+
+                btnViewFinal.classList.add('hidden');
+                btnStampPassport.classList.remove('hidden');
+
+                // Reset theme to Cosmic Cyan
+                finalPassport.classList.remove('theme-gold');
+                finalPassport.classList.add('theme-cyan');
+                btnThemeCyan.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#38BDF8]/20 border border-[#38BDF8] text-[#38BDF8] transition-all';
+                btnThemeGold.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/15 text-slate-400 hover:text-white transition-all';
+
+                switchStep(1);
+            });
+        })();
+    </script>
+</body>
+</html>
