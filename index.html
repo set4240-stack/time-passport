@@ -8,8 +8,8 @@
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
   :root {
-    --bg-dark: #090a0f;
-    --card-bg: rgba(255, 255, 255, 0.05);
+    --bg-dark: #07080c;
+    --card-bg: rgba(255, 255, 255, 0.045);
     --border-light: rgba(255, 255, 255, 0.12);
     --text-main: #f8fafc;
     --text-sub: #94a3b8;
@@ -19,6 +19,9 @@
     --aqua-glow: rgba(6, 182, 212, 0.25);
     --violet: #a855f7;
     --violet-glow: rgba(168, 85, 247, 0.25);
+    --ambient-1: rgba(234, 179, 8, 0.09);
+    --ambient-2: rgba(6, 182, 212, 0.09);
+    --ambient-3: rgba(168, 85, 247, 0.11);
   }
 
   * {
@@ -37,10 +40,11 @@
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+    transition: background 0.6s ease;
     background-image:
-      radial-gradient(circle at 15% 15%, rgba(234, 179, 8, 0.08), transparent 40%),
-      radial-gradient(circle at 85% 50%, rgba(6, 182, 212, 0.08), transparent 40%),
-      radial-gradient(circle at 50% 90%, rgba(168, 85, 247, 0.1), transparent 45%);
+      radial-gradient(circle at 15% 15%, var(--ambient-1), transparent 45%),
+      radial-gradient(circle at 85% 50%, var(--ambient-2), transparent 45%),
+      radial-gradient(circle at 50% 90%, var(--ambient-3), transparent 50%);
   }
 
   .app-container {
@@ -66,8 +70,8 @@
 
   .brand-tag {
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
     color: var(--text-sub);
   }
 
@@ -76,7 +80,8 @@
     border: 1px solid var(--border-light);
     color: #e2e8f0;
     font-size: 11px;
-    padding: 5px 10px;
+    font-weight: 600;
+    padding: 5px 11px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s;
@@ -93,12 +98,12 @@
     height: 4px;
     flex: 1;
     border-radius: 2px;
-    background: rgba(255, 255, 255, 0.15);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.14);
+    transition: all 0.35s ease;
   }
-  .step-dot.active-gold { background: var(--gold); box-shadow: 0 0 8px var(--gold-glow); }
-  .step-dot.active-aqua { background: var(--aqua); box-shadow: 0 0 8px var(--aqua-glow); }
-  .step-dot.active-violet { background: var(--violet); box-shadow: 0 0 8px var(--violet-glow); }
+  .step-dot.active-gold { background: var(--gold); box-shadow: 0 0 10px var(--gold-glow); }
+  .step-dot.active-aqua { background: var(--aqua); box-shadow: 0 0 10px var(--aqua-glow); }
+  .step-dot.active-violet { background: var(--violet); box-shadow: 0 0 10px var(--violet-glow); }
 
   /* Screen Transitions */
   .screen {
@@ -106,12 +111,12 @@
     flex-direction: column;
     flex: 1;
     justify-content: space-between;
-    animation: fadeIn 0.35s ease forwards;
+    animation: fadeIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .screen.active { display: flex; }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -123,14 +128,14 @@
     padding: 4px 10px;
     border-radius: 12px;
     margin-bottom: 12px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
   }
-  .badge-gold { background: var(--gold-glow); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.4); }
-  .badge-aqua { background: var(--aqua-glow); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4); }
-  .badge-violet { background: var(--violet-glow); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
+  .badge-gold { background: var(--gold-glow); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.45); }
+  .badge-aqua { background: var(--aqua-glow); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.45); }
+  .badge-violet { background: var(--violet-glow); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.45); }
 
   h1 {
-    font-size: 26px;
+    font-size: 25px;
     line-height: 1.35;
     font-weight: 800;
     margin-bottom: 10px;
@@ -141,132 +146,131 @@
     line-height: 1.6;
     color: var(--text-sub);
     margin-bottom: 20px;
+    word-break: keep-all;
   }
 
-  /* Character Guide Box */
+  /* Character Guide Box with Custom SVG */
   .guide-box {
     background: var(--card-bg);
     border: 1px solid var(--border-light);
     border-radius: 16px;
     padding: 14px 16px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    backdrop-filter: blur(8px);
   }
-  .avatar-circle {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 14px;
+  .avatar-svg {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
     flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.2);
   }
-  .av-ria { background: linear-gradient(135deg, #ca8a04, #fef08a); color: #000; }
-  .av-seon { background: linear-gradient(135deg, #0891b2, #a5f3fc); color: #000; }
-  .av-nova { background: linear-gradient(135deg, #7e22ce, #e9d5ff); color: #000; }
 
-  .guide-text { font-size: 13px; line-height: 1.45; color: #e2e8f0; }
-  .guide-name { font-size: 11px; font-weight: 700; display: block; margin-bottom: 2px; opacity: 0.8; }
+  .guide-text { font-size: 13px; line-height: 1.48; color: #e2e8f0; word-break: keep-all; }
+  .guide-name { font-size: 11px; font-weight: 700; display: block; margin-bottom: 3px; letter-spacing: 0.3px; }
 
   /* Selection Cards & Grids */
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
   .grid-1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
   .choice-card {
     background: var(--card-bg);
     border: 1px solid var(--border-light);
     border-radius: 14px;
-    padding: 15px;
+    padding: 14px 15px;
     text-align: left;
     color: var(--text-main);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.22s ease;
     position: relative;
   }
   .choice-card:active { transform: scale(0.98); }
   .choice-card strong { display: block; font-size: 15px; margin-bottom: 4px; }
-  .choice-card span { font-size: 12px; color: var(--text-sub); }
+  .choice-card span { font-size: 12px; color: var(--text-sub); line-height: 1.4; display: block; word-break: keep-all; }
 
-  .choice-card.selected-gold { border-color: var(--gold); background: rgba(234, 179, 8, 0.12); }
-  .choice-card.selected-aqua { border-color: var(--aqua); background: rgba(6, 182, 212, 0.12); }
-  .choice-card.selected-violet { border-color: var(--violet); background: rgba(168, 85, 247, 0.12); }
+  .choice-card.selected-gold { border-color: var(--gold); background: rgba(234, 179, 8, 0.14); box-shadow: 0 4px 16px rgba(234, 179, 8, 0.12); }
+  .choice-card.selected-aqua { border-color: var(--aqua); background: rgba(6, 182, 212, 0.14); box-shadow: 0 4px 16px rgba(6, 182, 212, 0.12); }
+  .choice-card.selected-violet { border-color: var(--violet); background: rgba(168, 85, 247, 0.14); box-shadow: 0 4px 16px rgba(168, 85, 247, 0.12); }
 
   /* Input Box */
-  .input-group { margin-bottom: 16px; }
+  .input-group { margin-bottom: 14px; }
   .input-group label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sub); margin-bottom: 6px; }
   textarea {
     width: 100%;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-light);
     border-radius: 12px;
     padding: 12px;
     color: #fff;
-    font-size: 14px;
+    font-size: 13.5px;
+    line-height: 1.45;
     resize: none;
-    height: 76px;
+    height: 74px;
     outline: none;
+    transition: border-color 0.2s;
   }
   textarea:focus { border-color: var(--gold); }
 
   /* Buttons */
-  .btn-row { display: flex; gap: 10px; margin-top: auto; padding-top: 12px; }
+  .btn-row { display: flex; gap: 10px; margin-top: auto; padding-top: 10px; }
   .btn {
     flex: 1;
-    padding: 15px;
+    padding: 14px;
     border-radius: 14px;
     border: none;
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
   }
   .btn:active { transform: scale(0.98); }
-  .btn-prev { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; flex: 0.4; }
-  .btn-primary { background: #fff; color: #090a0f; }
+  .btn-prev { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; flex: 0.38; }
+  .btn-primary { background: #fff; color: #07080c; }
   .btn-gold { background: var(--gold); color: #000; }
   .btn-aqua { background: var(--aqua); color: #000; }
   .btn-violet { background: var(--violet); color: #fff; }
+  .btn-outline { background: transparent; border: 1px solid var(--border-light); color: #e2e8f0; }
 
   /* Passport Preview Card (4:5 Aspect Ratio) */
   .passport-wrapper {
     width: 100%;
-    max-width: 310px;
-    margin: 0 auto 16px;
+    max-width: 312px;
+    margin: 0 auto 14px;
     aspect-ratio: 4 / 5;
     border-radius: 20px;
-    padding: 22px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-    transition: transform 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.65);
   }
-  .theme-CYBER { background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 50%, #06b6d4 140%); }
+  .theme-CYBER { background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 52%, #06b6d4 140%); }
   .theme-COSMIC { background: linear-gradient(145deg, #090d16 0%, #3b0764 55%, #a855f7 140%); }
   .theme-NATURE { background: linear-gradient(145deg, #064e3b 0%, #0f172a 60%, #eab308 140%); }
 
-  .pp-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px dashed rgba(255,255,255,0.25); padding-bottom: 12px; }
+  .pp-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px dashed rgba(255,255,255,0.28); padding-bottom: 11px; }
   .pp-title { font-size: 18px; font-weight: 900; letter-spacing: 1px; line-height: 1.1; }
-  .pp-sub { font-size: 9px; letter-spacing: 1.5px; opacity: 0.75; }
+  .pp-sub { font-size: 9px; letter-spacing: 1.4px; opacity: 0.78; margin-bottom: 3px; }
+  .pp-serial { font-size: 9px; font-family: monospace; opacity: 0.7; margin-top: 4px; letter-spacing: 0.8px; }
   .pp-stamp {
-    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border: 1.5px solid rgba(255, 255, 255, 0.65);
     border-radius: 50%;
     width: 48px;
     height: 48px;
@@ -277,38 +281,87 @@
     font-weight: 800;
     text-align: center;
     transform: rotate(-12deg);
-    line-height: 1.1;
+    line-height: 1.15;
+    flex-shrink: 0;
   }
 
-  .pp-body { my: auto; display: flex; flex-direction: column; gap: 12px; }
+  .pp-body { display: flex; flex-direction: column; gap: 11px; margin: auto 0; }
   .pp-field label { font-size: 9px; letter-spacing: 1.2px; opacity: 0.7; display: block; margin-bottom: 2px; }
-  .pp-field .val { font-size: 15px; font-weight: 700; }
+  .pp-field .val { font-size: 15px; font-weight: 800; }
   .pp-memory-box {
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.38);
     border-left: 3px solid var(--gold);
     padding: 10px 12px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 1.45;
     word-break: keep-all;
   }
 
+  .pp-barcode {
+    height: 18px;
+    width: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.75) 0px, rgba(255,255,255,0.75) 2px,
+      transparent 2px, transparent 5px,
+      rgba(255,255,255,0.75) 5px, rgba(255,255,255,0.75) 6px,
+      transparent 6px, transparent 10px
+    );
+    opacity: 0.55;
+    margin-top: 4px;
+  }
+
   .pp-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    padding-top: 9px;
     display: flex;
     justify-content: space-between;
-    font-size: 10px;
+    font-size: 9.5px;
     opacity: 0.85;
     font-weight: 600;
   }
+
+  /* In-app browser fallback image area */
+  #savedImageBox {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px dashed rgba(255,255,255,0.3);
+    border-radius: 14px;
+    text-align: center;
+  }
+  #savedImageBox p { font-size: 12px; color: #fde047; margin-bottom: 8px; font-weight: 600; }
+  #savedImageBox img { width: 100%; max-width: 240px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); }
+
+  /* Toast Notification */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 200;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* Modal for Mentor / KPI Overview */
   .modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.82);
+    background: rgba(0, 0, 0, 0.84);
     backdrop-filter: blur(6px);
     z-index: 100;
     justify-content: center;
@@ -327,7 +380,7 @@
     overflow-y: auto;
   }
   .modal-card h3 { font-size: 17px; margin-bottom: 12px; color: #fff; }
-  .modal-section { margin-bottom: 14px; font-size: 13px; line-height: 1.55; color: #cbd5e1; }
+  .modal-section { margin-bottom: 14px; font-size: 13px; line-height: 1.55; color: #cbd5e1; word-break: keep-all; }
   .modal-section strong { color: #fde047; display: block; margin-bottom: 3px; }
 </style>
 </head>
@@ -348,20 +401,23 @@
 
   <!-- SCREEN 1: TIME GATE -->
   <section class="screen active" id="screen1">
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 16px;">
       <span class="badge badge-gold">K-POP TIME TRAVEL MVP</span>
       <h1>당신의 K-POP 이야기는<br>언제 시작됐나요?</h1>
       <p class="desc">
         앨범과 캡처 속에 흩어진 입덕의 기억을 꺼내보세요.<br>
-        가상 아이돌 <strong>ECHO:ERA(리아·세온·노바)</strong>의 안내를 따라 3번 선택하면, 5분 안에 나만의 <strong>TIME PASSPORT</strong>가 완성됩니다.
+        3인조 가상 그룹 <strong>ECHO:ERA(리아·세온·노바)</strong>의 안내를 따라 3번 선택하면, 5분 안에 나만의 <strong>TIME PASSPORT</strong>가 완성됩니다.
       </p>
 
-      <div class="guide-box" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+      <div class="guide-box" style="flex-direction: column; align-items: flex-start; gap: 10px;">
         <div style="font-size: 12px; font-weight: 700; color: #fde047;">✨ 체험 안내 (무료 · 무회원 · 5분 소요)</div>
-        <div style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">
-          • <strong>STEP 1 (RIA):</strong> 나의 첫 입덕 시대와 한 줄 기억<br>
-          • <strong>STEP 2 (SEON):</strong> 현재 연결될 글로벌 가상 무대<br>
-          • <strong>STEP 3 (NOVA):</strong> 다가올 미래 콘서트 콘셉트
+        <div style="font-size: 13px; color: #cbd5e1; line-height: 1.58;">
+          • <strong>PAST (RIA):</strong> 나의 첫 입덕 연도와 한 줄 기억<br>
+          • <strong>PRESENT (SEON):</strong> 현재 연결될 글로벌 가상 무대<br>
+          • <strong>FUTURE (NOVA):</strong> 다가올 미래 콘서트 콘셉트
+        </div>
+        <div style="font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px; width: 100%;">
+          "아이돌이 완성된 세계를 보여주는 것이 아니라, 팬이 자신의 기억을 남길 때 세계가 완성됩니다."
         </div>
       </div>
     </div>
@@ -378,10 +434,17 @@
       <h1>첫 입덕의 순간을<br>기억하시나요?</h1>
 
       <div class="guide-box">
-        <div class="avatar-circle av-ria">RIA</div>
+        <!-- Custom SVG Silhouette for RIA (Antique Gold + Cassette motif) -->
+        <svg class="avatar-svg" viewBox="0 0 100 100">
+          <rect width="100" height="100" fill="#ca8a04"/>
+          <circle cx="50" cy="40" r="16" fill="#0f172a"/>
+          <path d="M22 92 C22 68, 78 68, 78 92 Z" fill="#0f172a"/>
+          <rect x="47" y="66" width="6" height="22" fill="#fde047"/>
+          <circle cx="24" cy="24" r="6" fill="none" stroke="#fef08a" stroke-width="2"/>
+        </svg>
         <div class="guide-text">
-          <span class="guide-name" style="color: #fde047;">리아 (LEADER / MAIN VOCAL)</span>
-          "길게 적지 않아도 괜찮아요. 당신의 첫 입덕 연도를 고르고, 떠오르는 한 문장만 남겨주세요."
+          <span class="guide-name" style="color: #fde047;">리아 / RIA (LEADER · MAIN VOCAL)</span>
+          "길게 적지 않아도 괜찮아요. 첫 입덕 연도를 고르고, 떠오르는 한 문장만 남겨주세요."
         </div>
       </div>
 
@@ -426,9 +489,16 @@
       <h1>지금 당신의 무대는<br>어디에서 열릴까요?</h1>
 
       <div class="guide-box">
-        <div class="avatar-circle av-seon">SEON</div>
+        <!-- Custom SVG Silhouette for SEON (Aqua Blue + Stage Light motif) -->
+        <svg class="avatar-svg" viewBox="0 0 100 100">
+          <rect width="100" height="100" fill="#0891b2"/>
+          <polygon points="50,35 35,22 52,18 65,26" fill="#0f172a"/>
+          <circle cx="50" cy="41" r="15" fill="#0f172a"/>
+          <path d="M20 92 C20 67, 80 67, 80 92 Z" fill="#0f172a"/>
+          <rect x="47" y="66" width="6" height="22" fill="#67e8f9"/>
+        </svg>
         <div class="guide-text">
-          <span class="guide-name" style="color: #67e8f9;">세온 (MAIN DANCER / LEAD VOCAL)</span>
+          <span class="guide-name" style="color: #67e8f9;">세온 / SEON (MAIN DANCER · LEAD VOCAL)</span>
           "서울, 도쿄, 시드니! 지금 당신의 기억과 가장 닮은 가상 월드투어 도시를 하나 골라줘!"
         </div>
       </div>
@@ -462,9 +532,16 @@
       <h1>다가올 미래 콘서트는<br>어떤 모습일까요?</h1>
 
       <div class="guide-box">
-        <div class="avatar-circle av-nova">NOVA</div>
+        <!-- Custom SVG Silhouette for NOVA (Violet + Hologram Visor motif) -->
+        <svg class="avatar-svg" viewBox="0 0 100 100">
+          <rect width="100" height="100" fill="#7e22ce"/>
+          <rect x="34" y="20" width="32" height="14" rx="4" fill="#a855f7"/>
+          <circle cx="50" cy="42" r="15" fill="#0f172a"/>
+          <path d="M20 92 C20 67, 80 67, 80 92 Z" fill="#0f172a"/>
+          <rect x="47" y="66" width="6" height="22" fill="#d8b4fe"/>
+        </svg>
         <div class="guide-text">
-          <span class="guide-name" style="color: #d8b4fe;">노바 (MAIN RAPPER / PRODUCER)</span>
+          <span class="guide-name" style="color: #d8b4fe;">노바 / NOVA (MAIN RAPPER · PRODUCER)</span>
           "네가 고른 콘셉트에 맞춰 여권의 빛깔과 미래 무대 신호를 지금 바로 디자인해 줄게."
         </div>
       </div>
@@ -494,8 +571,8 @@
   <!-- SCREEN 5: RESULT (TIME PASSPORT) -->
   <section class="screen" id="screen5">
     <div style="text-align: center;">
-      <span class="badge badge-gold" style="margin-bottom: 8px;">THE FIRST SIGNAL COMPLETED</span>
-      <h1 style="font-size: 22px; margin-bottom: 14px;">당신의 시간 여권이 발급되었습니다</h1>
+      <span class="badge badge-gold" style="margin-bottom: 6px;">THE FIRST SIGNAL COMPLETED</span>
+      <h1 style="font-size: 21px; margin-bottom: 12px;">당신의 시간 여권이 발급되었습니다</h1>
 
       <!-- Visual 4:5 Passport Card -->
       <div class="passport-wrapper theme-COSMIC" id="passportCard">
@@ -503,6 +580,7 @@
           <div style="text-align: left;">
             <div class="pp-sub">STARDIAR WORLD ARCHIVE</div>
             <div class="pp-title">TIME<br>PASSPORT</div>
+            <div class="pp-serial" id="ppSerial">NO. ST-26-8492</div>
           </div>
           <div class="pp-stamp" id="ppStamp">MOMENT<br>2010s</div>
         </div>
@@ -530,21 +608,36 @@
           </div>
         </div>
 
-        <div class="pp-footer">
-          <span>GUIDE: ECHO:ERA</span>
-          <span>CHRONOWAVE STUDIO</span>
+        <div>
+          <div class="pp-barcode"></div>
+          <div class="pp-footer">
+            <span>GUIDE: ECHO:ERA</span>
+            <span>CHRONOWAVE STUDIO</span>
+          </div>
         </div>
+      </div>
+
+      <!-- In-App Browser Image Fallback -->
+      <div id="savedImageBox">
+        <p>📱 모바일 인앱 브라우저라면 아래 이미지를 꾹 눌러 '사진에 저장'하세요!</p>
+        <img id="renderedImg" alt="TIME PASSPORT PNG"/>
       </div>
     </div>
 
-    <div class="btn-row" style="flex-direction: column; gap: 8px;">
+    <div class="btn-row" style="flex-direction: column; gap: 8px; margin-top: 10px;">
       <button class="btn btn-primary" onclick="downloadPassportPNG()">📥 여권 이미지 저장하기 (PNG)</button>
-      <button class="btn btn-prev" style="flex: 1; font-size: 13px; padding: 11px;" onclick="goScreen(1)">처음부터 다시 만들기</button>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-outline" style="font-size: 13px; padding: 11px;" onclick="copyShareLink()">🔗 초대 링크 복사</button>
+        <button class="btn btn-prev" style="flex: 1; font-size: 13px; padding: 11px;" onclick="goScreen(1)">🔄 다시 만들기</button>
+      </div>
     </div>
   </section>
 </div>
 
-<!-- Hidden Canvas for Clean High-Res PNG Export -->
+<!-- Toast -->
+<div class="toast" id="toastMsg">링크가 클립보드에 복사되었습니다!</div>
+
+<!-- Hidden Canvas for Clean High-Res PNG Export (800x1000 = 4:5 Ratio) -->
 <canvas id="exportCanvas" width="800" height="1000" style="display:none;"></canvas>
 
 <!-- Mentor / KPI Note Modal -->
@@ -552,13 +645,13 @@
   <div class="modal-card">
     <h3>📌 기획 의도 및 검증 지표 (MVP)</h3>
     <div class="modal-section">
-      <strong>1. 핵심 설계 원칙</strong>
+      <strong>1. 핵심 설계 원칙 ("팬이 주인공이다")</strong>
       가상 아이돌(ECHO:ERA)이 팬의 기억을 대신하지 않고, 3번의 선택을 돕는 UI 가이드 역할만 수행하여 팬 자신이 주인공이 되도록 설계했습니다.
     </div>
     <div class="modal-section">
       <strong>2. 소규모 사용자 테스트 KPI (목표)</strong>
       • <strong>체험 완료율:</strong> 시작자 대비 최종 여권 도달 비율 (목표: 6명 중 5명 이상)<br>
-      • <strong>PNG 저장률:</strong> 결과 도달자 중 실제 이미지 다운로드 비율<br>
+      • <strong>PNG 저장률:</strong> 결과 도달자 중 실제 이미지 저장 비율<br>
       • <strong>체험 시간:</strong> 이탈 없이 5분 이내 완료 여부 검증
     </div>
     <div class="modal-section">
@@ -576,12 +669,21 @@
     era: '2010s',
     memory: '',
     city: 'SEOUL',
-    concept: 'COSMIC'
+    concept: 'COSMIC',
+    serial: 'ST-26-8492'
   };
+
+  function showToast(msg) {
+    const t = document.getElementById('toastMsg');
+    t.innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
 
   function goScreen(num) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('screen' + num).classList.add('active');
+    document.getElementById('savedImageBox').style.display = 'none';
 
     const pb = document.getElementById('progressBar');
     if (num === 1) {
@@ -600,6 +702,7 @@
     state.era = era;
     document.querySelectorAll('#eraGrid .choice-card').forEach(c => c.classList.remove('selected-gold'));
     el.classList.add('selected-gold');
+    document.documentElement.style.setProperty('--ambient-1', 'rgba(234, 179, 8, 0.18)');
   }
 
   function updateCount() {
@@ -612,16 +715,28 @@
     state.city = city;
     document.querySelectorAll('#cityGrid .choice-card').forEach(c => c.classList.remove('selected-aqua'));
     el.classList.add('selected-aqua');
+    document.documentElement.style.setProperty('--ambient-2', 'rgba(6, 182, 212, 0.18)');
   }
 
   function selectConcept(concept, el) {
     state.concept = concept;
     document.querySelectorAll('#conceptGrid .choice-card').forEach(c => c.classList.remove('selected-violet'));
     el.classList.add('selected-violet');
+    if (concept === 'CYBER') {
+      document.documentElement.style.setProperty('--ambient-3', 'rgba(6, 182, 212, 0.22)');
+    } else if (concept === 'NATURE') {
+      document.documentElement.style.setProperty('--ambient-3', 'rgba(16, 185, 129, 0.22)');
+    } else {
+      document.documentElement.style.setProperty('--ambient-3', 'rgba(168, 85, 247, 0.22)');
+    }
   }
 
   function buildPassport() {
+    const randNum = Math.floor(1000 + Math.random() * 9000);
+    state.serial = 'ST-26-' + randNum;
+
     const finalMemory = state.memory.trim() || '음악과 함께 반짝이던 나의 첫 입덕 순간';
+    document.getElementById('ppSerial').innerText = 'NO. ' + state.serial;
     document.getElementById('resEra').innerText = state.era;
     document.getElementById('ppStamp').innerHTML = 'MOMENT<br>' + state.era;
     document.getElementById('resMemory').innerText = finalMemory;
@@ -637,6 +752,17 @@
     const m = document.getElementById('mentorModal');
     if (open) m.classList.add('open');
     else m.classList.remove('open');
+  }
+
+  function copyShareLink() {
+    const url = window.location.href.split('?')[0];
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('🔗 체험 링크가 복사되었습니다! 친구에게 공유해보세요.');
+      });
+    } else {
+      showToast('주소창의 링크를 복사해 공유해주세요!');
+    }
   }
 
   // Zero-dependency Canvas PNG Generator (4:5 Ratio: 800x1000)
@@ -670,18 +796,22 @@
     // Top Header
     ctx.fillStyle = 'rgba(255,255,255,0.75)';
     ctx.font = 'bold 20px sans-serif';
-    ctx.fillText('STARDIAR WORLD ARCHIVE', 72, 105);
+    ctx.fillText('STARDIAR WORLD ARCHIVE', 72, 102);
 
     ctx.fillStyle = '#ffffff';
     ctx.font = '900 54px sans-serif';
-    ctx.fillText('TIME', 72, 168);
-    ctx.fillText('PASSPORT', 72, 226);
+    ctx.fillText('TIME', 72, 162);
+    ctx.fillText('PASSPORT', 72, 218);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.font = 'bold 18px monospace';
+    ctx.fillText('NO. ' + state.serial, 72, 250);
 
     // Stamp Circle
     ctx.save();
     ctx.translate(650, 155);
     ctx.rotate(-0.2);
-    ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.72)';
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.arc(0, 0, 62, 0, Math.PI * 2);
@@ -697,29 +827,28 @@
     ctx.strokeStyle = 'rgba(255,255,255,0.25)';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(72, 265);
-    ctx.lineTo(728, 265);
+    ctx.moveTo(72, 282);
+    ctx.lineTo(728, 282);
     ctx.stroke();
 
     // Field 1: ERA
     ctx.fillStyle = 'rgba(255,255,255,0.65)';
     ctx.font = 'bold 20px sans-serif';
-    ctx.fillText('MY FIRST ERA (PAST · RIA)', 72, 330);
+    ctx.fillText('MY FIRST ERA (PAST · RIA)', 72, 340);
     ctx.fillStyle = '#fde047';
     ctx.font = '800 44px sans-serif';
-    ctx.fillText(state.era, 72, 385);
+    ctx.fillText(state.era, 72, 394);
 
     // Field 2: MEMORY BOX
     ctx.fillStyle = 'rgba(255,255,255,0.65)';
     ctx.font = 'bold 20px sans-serif';
-    ctx.fillText('FIRST MEMORY SIGNAL', 72, 460);
+    ctx.fillText('FIRST MEMORY SIGNAL', 72, 464);
 
-    ctx.fillStyle = 'rgba(0,0,0,0.38)';
-    ctx.fillRect(72, 482, 656, 170);
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.fillRect(72, 484, 656, 165);
     ctx.fillStyle = '#eab308';
-    ctx.fillRect(72, 482, 8, 170);
+    ctx.fillRect(72, 484, 8, 165);
 
-    // Wrap Korean text nicely
     const text = state.memory.trim() || '음악과 함께 반짝이던 나의 첫 입덕 순간';
     ctx.fillStyle = '#ffffff';
     ctx.font = '600 30px sans-serif';
@@ -728,37 +857,54 @@
     // Field 3 & 4: STAGE & FUTURE
     ctx.fillStyle = 'rgba(255,255,255,0.65)';
     ctx.font = 'bold 20px sans-serif';
-    ctx.fillText('WORLD STAGE (SEON)', 72, 730);
+    ctx.fillText('WORLD STAGE (SEON)', 72, 722);
     ctx.fillStyle = '#67e8f9';
     ctx.font = '800 38px sans-serif';
-    ctx.fillText(state.city, 72, 780);
+    ctx.fillText(state.city, 72, 772);
 
     ctx.fillStyle = 'rgba(255,255,255,0.65)';
     ctx.font = 'bold 20px sans-serif';
-    ctx.fillText('FUTURE STAGE (NOVA)', 430, 730);
+    ctx.fillText('FUTURE STAGE (NOVA)', 430, 722);
     ctx.fillStyle = '#d8b4fe';
     ctx.font = '800 38px sans-serif';
-    ctx.fillText(state.concept, 430, 780);
+    ctx.fillText(state.concept, 430, 772);
+
+    // Barcode Graphic on Canvas
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    for (let bx = 72; bx < 728; bx += 14) {
+      const w = (bx % 28 === 0) ? 6 : 3;
+      ctx.fillRect(bx, 825, w, 28);
+    }
 
     // Footer
     ctx.strokeStyle = 'rgba(255,255,255,0.25)';
     ctx.beginPath();
-    ctx.moveTo(72, 865);
-    ctx.lineTo(728, 865);
+    ctx.moveTo(72, 875);
+    ctx.lineTo(728, 875);
     ctx.stroke();
 
     ctx.fillStyle = 'rgba(255,255,255,0.85)';
     ctx.font = 'bold 22px sans-serif';
-    ctx.fillText('GUIDE: ECHO:ERA (RIA · SEON · NOVA)', 72, 915);
+    ctx.fillText('GUIDE: ECHO:ERA (RIA · SEON · NOVA)', 72, 922);
     ctx.textAlign = 'right';
-    ctx.fillText('CHRONOWAVE STUDIO', 728, 915);
+    ctx.fillText('CHRONOWAVE STUDIO', 728, 922);
     ctx.textAlign = 'left';
 
-    // Trigger Download
+    const dataUrl = canvas.toDataURL('image/png');
+
+    // Render fallback image for mobile in-app browsers (KakaoTalk/Instagram)
+    const imgBox = document.getElementById('savedImageBox');
+    const imgEl = document.getElementById('renderedImg');
+    imgEl.src = dataUrl;
+    imgBox.style.display = 'block';
+
+    // Trigger Standard Download
     const link = document.createElement('a');
-    link.download = 'KPOP_TIME_PASSPORT.png';
-    link.href = canvas.toDataURL('image/png');
+    link.download = 'KPOP_TIME_PASSPORT_' + state.serial + '.png';
+    link.href = dataUrl;
     link.click();
+
+    showToast('📥 TIME PASSPORT 이미지가 생성되었습니다!');
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
